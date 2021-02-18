@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for
 import db_connector as db
+import os
 
 app = Flask(__name__)
 db_connection = db.connect_to_database()
