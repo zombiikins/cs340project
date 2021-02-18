@@ -4,7 +4,7 @@ Setup on local computer
 ---
 git project
 ```
-git clone https://github.com/yichangliao/interface.git
+git clone https://github.com/yichangliao/cs340project.git
 ```
 run python virtual
 ```
