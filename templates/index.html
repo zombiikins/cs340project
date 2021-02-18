@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Home / Claims{% endblock %}
+
+{% block nav %}
+  <div class="rightside">
+    <ul class="menu">
+      <li id=current><a href="/">HOME / CLAIMS</a></li>
+      <li><a href="/patients">PATIENTS</a></li>
+      <li><a href="/providers">PROVIDERS</a></li>
+      <li><a href="/facilities">FACILITIES</a></li>
+      <li><a href="/patientsProviders">PATIENTS AND PROVIDERS</a></li>
+      <li><a href="/facilitiesProviders">FACILITIES AND PROVIDERS</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block search %}
+  <ul class="search">
+    <li>
+      <label for="claimID">claimID</label>
+    </li>
+    <li>
+      <input type="number" id="claimID" name="claimID">
+    </li><br>
+    <li>
+      <label for="patientID">patientID</label>
+    </li>
+    <li>
+      <input type="number" id="patientID" name="patientID">
+    </li><br>
+    <li>
+      <label for="patProvID">patProvID</label>
+    </li>
+    <li>
+      <input type="number" id="patProvID" name="patProvID">
+    </li><br>
+    <li>
+      <label for="provFacID">provFacID</label>
+    </li>
+    <li>
+      <input type="number" id="provFacID" name="provFacID">
+    </li><br>
+    <li>
+      <label for="dateOfService">dateOfService</label>
+    </li>
+    <li>
+      <input type="date" id="dateOfService" name="dateOfService">
+    </li>
+    <li>
+      <label for="procedure">procedure</label>
+    </li>
+    <li>
+      <input type="text" id="procedure" name="procedure">
+    </li><br>
+    <li>
+      <label for="billedAmount">billedAmount</label>
+    </li>
+    <li>
+      <input type="number" id="billedAmount" name="billedAmount ">
+    </li><br>
+  </ul>
+{% endblock %}
+
+{% block table %}
+  <table id="table">
+    <thead>
+      <tr>
+        <th>claimID</th>
+        <th><span class="must">* </span>patientID</th>
+        <th>patProvID</th>
+        <th>provFacID</th>
+        <th><span class="must">* </span>dateOfService</th>
+        <th><span class="must">* </span>procedure</th>
+        <th><span class="must">* </span>billedAmount</th>
+        <th><span class="must">* must be filled</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="add">
+        <form>
+          <td>
+            <input type="hidden" id="claimID" name="claimID">
+          </td>
+          <td>
+            <input type="number" id="addpatientID" name="addpatientID">
+          </td>
+          <td>
+            <input type="number" id="addprovID" name="addprovID">
+          </td>
+          <td>
+            <input type="number" id="addfacilityID" name="addfacilityID">
+          </td>
+          <td>
+            <input type="date" id="adddateOfService" name="adddateOfService">
+          </td>
+          <td>
+            <input type="text" id="addprocedure" name="addprocedure">
+          </td>
+          <td>
+            <input type="number" id="addbilledAmount" name="addbilledAmount">
+          </td>
+          <td>
+            <input class="button" type="submit" value="ADD">
+          </td>
+        </form>
+      </tr>
+      <div class="show">
+      <tr>
+      <form>
+        <td><input type="number" id="claimID" name="claimID" value=1 disabled></td>
+        <td><input type="number" id="patientID" name="patientID" value="2"></td>
+        <td><input type="text" id="provID" name="provID" value="2"></td>
+        <td><input type="text" id="facilityID" name="facilityID" value="NULL"></td>
+        <td><input type="date" id="dateOfService" name="dateOfService" value="2021-01-30"></td>
+        <td><input type="text" id="procedure" name="procedure" value="tele visit"></td>
+        <td><input type="number" id="billedAmount" name="billedAmount" value="150.00"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="claimID" name="claimID" value=1 disabled></td>
+        <td><input type="number" id="patientID" name="patientID" value="4"></td>
+        <td><input type="text" id="provID" name="provID" value="NULL"></td>
+        <td><input type="text" id="facilityID" name="facilityID" value="3"></td>
+        <td><input type="date" id="dateOfService" name="dateOfService" value="2021-01-30"></td>
+        <td><input type="text" id="procedure" name="procedure" value="COVID-19 Vaccination"></td>
+        <td><input type="number" id="billedAmount" name="billedAmount" value="150.00"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      </div>
+    </tbody>
+  </table>
+{% endblock %}

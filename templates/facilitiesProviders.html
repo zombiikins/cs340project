@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}ProvidersFacilities{% endblock %}
+
+{% block nav %}
+  <div class="rightside">
+    <ul class="menu">
+      <li><a href="/">HOME / CLAIMS</a></li>
+      <li><a href="/patients">PATIENTS</a></li>
+      <li><a href="/providers">PROVIDERS</a></li>
+      <li><a href="/facilities">FACILITIES</a></li>
+      <li><a href="/patientsProviders">PATIENTS AND PROVIDERS</a></li>
+      <li id=current><a href="/facilitiesProviders">FACILITIES AND PROVIDERS</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block search %}
+  <ul class="search">
+    <li>
+      <label for="provFacID">provFacID</label>
+    </li>
+    <li>
+      <input type="number" id="provFacID" name="provFacID">
+    </li><br>
+    <li>
+      <label for="provID">provID</label>
+    </li>
+    <li>
+      <select id="provID" name="provID">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </li><br>
+    <li>
+      <label for="facliityID">facilityID</label>
+    </li>
+    <li>
+      <select id="facilityID" name="facilityID">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </li><br>
+  </ul>
+{% endblock %}
+
+{% block table %}
+  <table id="table">
+    <thead>
+      <tr>
+        <th>provFacID</th>
+        <th><span class="must">* </span>provID</th>
+        <th><span class="must">* </span>facilityID</th>
+        <th><span class="must">* must be filled</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="add">
+        <form>
+          <td>
+            <input type="hidden" id="provFacID" name = "provFacID">
+          </td>
+          <td>
+            <input type="number" id="addProvID" name="addProvID">
+          </td>
+          <td>
+            <input type="number" id="addfacilityID" name="addfacilityID">
+          </td>
+          <td>
+            <input class="button" type="submit" value="ADD">
+          </td>
+        </form>
+      </tr>
+      <div class="show">
+      <tr>
+      <form>
+        <td><input type="number" id="provFacID" name="provFacID" value=1 disabled></td>
+        <td><input type="number" id="provID" name="provID" value=3 ></td>
+        <td><input type="number" id="facilityID" name="facilityID" value=2 ></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="provFacID" name="provFacID" value=2 disabled></td>
+        <td><input type="number" id="provID" name="provID" value=3 ></td>
+        <td><input type="number" id="facilityID" name="facilityID" value=1 ></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      </div>
+    </tbody>
+  </table>
+{% endblock %}

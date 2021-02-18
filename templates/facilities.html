@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Facilities{% endblock %}
+
+{% block nav %}
+  <div class="rightside">
+    <ul class="menu">
+      <li><a href="/">HOME / CLAIMS</a></li>
+      <li><a href="/patients">PATIENTS</a></li>
+      <li><a href="/providers">PROVIDERS</a></li>
+      <li id=current><a href="/facilities">FACILITIES</a></li>
+      <li><a href="/patientsProviders">PATIENTS AND PROVIDERS</a></li>
+      <li><a href="/facilitiesProviders">FACILITIES AND PROVIDERS</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block search %}
+  <ul class="search">
+    <li>
+      <label for="faclityID">facilityID</label>
+    </li>
+    <li>
+      <input type="number" id="faclityID" name="faclityID">
+    </li><br>
+    <li>
+      <label for="facilityAddress">facilityAddress</label>
+    </li>
+    <li>
+      <input type="text" id="facilityAddress" name="facilityAddress">
+    </li><br>
+    <li>
+      <label for="facilityCity">facilityCity</label>
+    </li>
+    <li>
+      <input type="text" id="facilityCity" name="facilityCity">
+    </li><br>
+    <li>
+      <label for="facilityState">facilityState</label>
+    </li>
+    <li>
+      <input type="text" id="facilityState" name="facilityState">
+    </li><br>
+    <li>
+      <label for="zip">zip</label>
+    </li>
+    <li>
+      <input type="text" id="zip" name="zip">
+    </li><br>
+  </ul>
+{% endblock %}
+
+{% block table %}
+  <table id="table">
+    <thead>
+      <tr>
+        <th>facilityID</th>
+        <th><span class="must">* </span>facilityAddress</th>
+        <th><span class="must">* </span>facilityCity</th>
+        <th><span class="must">* </span>facilityState</th>
+        <th><span class="must">* </span>zip</th>
+        <th><span class="must">* must be filled</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="add">
+        <form>
+          <td>
+            <input type="hidden" id="facilityID" name="facilityID">
+          </td>
+          <td>
+            <input type="text" id="addfacilityAddress" name="addfacilityAddress">
+          </td>
+          <td>
+            <input type="text" id="addfacilityCity" name="addfacilityCity">
+          </td>
+          <td>
+            <input type="text" id="addfacilityState" name="addfacilityState">
+          </td>
+          <td>
+            <input type="text" id="addzip" name="addzip">
+          </td>
+          <td>
+            <input class="button" type="submit" value="ADD">
+          </td>
+        </form>
+      </tr>
+      <div class="show">
+      <tr>
+      <form>
+        <td><input type="number" id="facilityID" name="facilityID" value=1 disabled></td>
+        <td><input type="text" id="facilityAddress" name="facilityAddress" value="1000 Beta Ave"></td>
+        <td><input type="text" id="facilityCity" name="facilityCity" value="Portland"></td>
+        <td><input type="text" id="facilityState" name="facilityState" value="OR"></td>
+        <td><input type="text" id="zip" name="zip" value="97035"></td>
+        <td><input class="button" type="submit" value="See Provider"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="facilityID" name="facilityID" value=1 disabled></td>
+        <td><input type="text" id="facilityAddress" name="facilityAddress" value="1000 Beta Ave"></td>
+        <td><input type="text" id="facilityCity" name="facilityCity" value="Portland"></td>
+        <td><input type="text" id="facilityState" name="facilityState" value="OR"></td>
+        <td><input type="text" id="zip" name="zip" value="97035"></td>
+        <td><input class="button" type="submit" value="See Provider"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      </div>
+    </tbody>
+  </table>
+{% endblock %}

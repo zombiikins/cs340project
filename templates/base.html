@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel = "stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="nav">
+    <div class="leftside"><span id=logo>ALPHA HEALTH SYSTEM</span></div>
+    {% block nav %}{% endblock %}
+  </div>
+  <header>
+    <div class="leftside">
+      <form>
+        <input class="button" type="submit" value="SEARCH">
+        <input class="button" type="reset" value="RESET">
+        {% block search %}{% endblock %}
+      </form>
+    </div>
+    <div class="rightside">
+      <div class="content">
+      {% block table %}{% endblock %}
+      </div>
+    </div>
+  </header>
+</body>
+</html>

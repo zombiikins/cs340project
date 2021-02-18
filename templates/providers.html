@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Providers{% endblock %}
+
+{% block nav %}
+  <div class="rightside">
+    <ul class="menu">
+      <li><a href="/">HOME / CLAIMS</a></li>
+      <li><a href="/patients">PATIENTS</a></li>
+      <li id=current><a href="/providers">PROVIDERS</a></li>
+      <li><a href="/facilities">FACILITIES</a></li>
+      <li><a href="/patientsProviders">PATIENTS AND PROVIDERS</a></li>
+      <li><a href="/facilitiesProviders">FACILITIES AND PROVIDERS</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block search %}
+  <ul class="search">
+    <li>
+      <label for="provID">provID</label>
+    </li>
+    <li>
+      <input type="number" id="provID" name="provID">
+    </li><br>
+    <li>
+      <label for="provFirstName">provFirstName</label>
+    </li>
+    <li>
+      <input type="text" id="provFirstName" name="provFirstName">
+    </li><br>
+    <li>
+      <label for="provLastName">provLastName</label>
+    </li>
+    <li>
+      <input type="text" id="provLastName" name="provLastName">
+    </li><br>
+    <li>
+      <label for="provSpecialty">provSpecialty</label>
+    </li>
+    <li>
+      <input type="text" id="provSpecialty" name="provSpecialty">
+    </li><br>
+  </ul>
+{% endblock %}
+
+{% block table %}
+  <table id="table">
+    <thead>
+      <tr>
+        <th>provID</th>
+        <th><span class="must">* </span>provFirstName</th>
+        <th><span class="must">* </span>provLastName</th>
+        <th><span class="must">* </span>provSpecialty</th>
+        <th><span class="must">* must be filled</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="add">
+        <form>
+          <td>
+            <input type="hidden" id="provID" name="provID">
+          </td>
+          <td>
+            <input type="text" id="addpfname" name="addpfname">
+          </td>
+          <td>
+            <input type="text" id="addplname" name="addplname">
+          </td>
+          <td>
+            <input type="text" id="addpsp" name="addpsp">
+          </td>
+          <td>
+            <input class="button" type="submit" value="ADD">
+          </td>
+        </form>
+      </tr>
+      <div class="show">
+      <tr>
+      <form>
+        <td><input type="number" id="provID" name="provID" value=2 disabled></td>
+        <td><input type="text" id="provFirstName" name="provFirstName" value="Mandy"></td>
+        <td><input type="text" id="provLastName" name="provLastName" value="Boeman"></td>
+        <td><input type="text" id="provSpecialty" name="provSpecialty" value="Dermatology"></td>
+        <td><input class="button" type="submit" value="See Patient"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="provID" name="provID" value=2 disabled></td>
+        <td><input type="text" id="provFirstName" name="provFirstName" value="Mandy"></td>
+        <td><input type="text" id="provLastName" name="provLastName" value="Boeman"></td>
+        <td><input type="text" id="provSpecialty" name="provSpecialty" value="Dermatology"></td>
+        <td><input class="button" type="submit" value="See Patient"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="provID" name="provID" value=2 disabled></td>
+        <td><input type="text" id="provFirstName" name="provFirstName" value="Mandy"></td>
+        <td><input type="text" id="provLastName" name="provLastName" value="Boeman"></td>
+        <td><input type="text" id="provSpecialty" name="provSpecialty" value="Dermatology"></td>
+        <td><input class="button" type="submit" value="See Provider"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      </div>
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}Patients{% endblock %}
+
+{% block nav %}
+  <div class="rightside">
+    <ul class="menu">
+      <li><a href="/">HOME / CLAIMS</a></li>
+      <li id=current><a href="/patients">PATIENTS</a></li>
+      <li><a href="/providers">PROVIDERS</a></li>
+      <li><a href="/facilities">FACILITIES</a></li>
+      <li><a href="/patientsProviders">PATIENTS AND PROVIDERS</a></li>
+      <li><a href="/facilitiesProviders">FACILITIES AND PROVIDERS</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block search %}
+  <ul class="search">
+    <li>
+      <label for="filter">filter</label>
+    </li>
+    <li>
+      <select id="filter" name="filter">
+        <option value="0"> age less than 12 </option>
+        <option value="0"> age 12-21 </option>
+        <option value="0"> age 21-65 </option>
+        <option value="0"> age larger than 65 </option>
+      </select>
+    </li><br>
+    <li>
+      <label for="patientID">patientID</label>
+    </li>
+    <li>
+      <input type="number" id="patientID" name="patientID">
+    </li><br>
+    <li>
+      <label for="fname">firstName</label>
+    </li>
+    <li>
+      <input type="text" id="fname" name="fname">
+    </li><br>
+    <li>
+      <label for="lname">lastName</label>
+    </li>
+    <li>
+      <input type="text" id="lname" name="lname">
+    </li><br>
+    <li>
+      <label for="age">age</label>
+    </li>
+    <li>
+      <input type="number" id="age" name="age">
+    </li><br>
+    <li>
+      <label for="gender">gender</label>
+    </li>
+    <li>
+      <select id="gender" name="gender">
+        <option value="m">male</option>
+        <option value="f">female</option>
+      </select>
+    </li>
+    <li>
+      <label for="phoneNumber">phoneNumber</label>
+    </li>
+    <li>
+      <input type="text" id="phoneNumber" name="phoneNumber">
+    </li>
+  </ul>
+{% endblock %}
+
+{% block table %}
+  <table id="table">
+    <thead>
+      <tr>
+        <th>patientID</th>
+        <th><span class="must">* </span>firstName</th>
+        <th><span class="must">* </span>lastName</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>phoneNumber</th>
+        <th>email</th>
+        <th><span class="must">* must be filled</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="add">
+        <form>
+          <td>
+            <input type="hidden" id="patientID" name="patientID">
+          </td>
+          <td>
+            <input type="text" id="addfname" name="addfname">
+          </td>
+          <td>
+            <input type="text" id="addlname" name="addlname">
+          </td>
+          <td>
+            <input type="number" id="addage" name="addage">
+          </td>
+          <td>
+            <select id="addgender" name="addgender">
+              <option value="m">male</option>
+              <option value="f">female</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" id="addpnum" name="addpnum">
+          </td>
+          <td>
+            <input type="email" id="addemail" name="addemail">
+          </td>
+          <td>
+            <input class="button" type="submit" value="ADD">
+          </td>
+        </form>
+      </tr>
+      <div class="show">
+      <tr>
+      <form>
+        <td><input type="number" id="patientID" name="patientID" value=1 disabled></td>
+        <td><input type="text" id="fname" name="fname" value="John"></td>
+        <td><input type="text" id="lname" name="lname" value="Hatten"></td>
+        <td><input type="number" id="age" name="age" value=52></td>
+        <td>
+            <select id="addgender" name="addgender">
+              <option selected value="m">male</option>
+              <option value="f">female</option>
+            </select>
+        </td>
+        <td><input type="text" id="phoneNumber" name="phoneNumber" value="208-111-1111"></td>
+        <td><input type="email" id="email" name="email" value="john@gmail.com"></td>
+        <td><input class="button" type="submit" value="See Provider"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="patientID" name="patientID" value=1 disabled></td>
+        <td><input type="text" id="fname" name="fname" value="John"></td>
+        <td><input type="text" id="lname" name="lname" value="Hatten"></td>
+        <td><input type="number" id="age" name="age" value=52></td>
+        <td>
+            <select id="addgender" name="addgender">
+              <option selected value="m">male</option>
+              <option value="f">female</option>
+            </select>
+        </td>
+        <td><input type="text" id="phoneNumber" name="phoneNumber" value="208-111-1111"></td>
+        <td><input type="email" id="email" name="email" value="john@gmail.com"></td>
+        <td><input class="button" type="submit" value="See Provider"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      <tr>
+      <form>
+        <td><input type="number" id="patientID" name="patientID" value=1 disabled></td>
+        <td><input type="text" id="fname" name="fname" value="John"></td>
+        <td><input type="text" id="lname" name="lname" value="Hatten"></td>
+        <td><input type="number" id="age" name="age" value=52></td>
+        <td>
+            <select id="addgender" name="addgender">
+              <option selected value="m">male</option>
+              <option value="f">female</option>
+            </select>
+        </td>
+        <td><input type="text" id="phoneNumber" name="phoneNumber" value="208-111-1111"></td>
+        <td><input type="email" id="email" name="email" value="john@gmail.com"></td>
+        <td><input class="button" type="submit" value="See Provider"></td>
+        <td><input class="button" type="submit" value="Edit"></td>
+        <td><input class="button" type="submit" value="Delete"></td>
+      </form>
+      </tr>
+      </div>
+    </tbody>
+  </table>
+{% endblock %}
