@@ -16,34 +16,38 @@
 {% endblock %}
 
 {% block search %}
-  <ul class="search">
-    <li>
-      <label for="provFacID">provFacID</label>
-    </li>
-    <li>
-      <input type="number" id="provFacID" name="provFacID">
-    </li><br>
-    <li>
-      <label for="provID">provID</label>
-    </li>
-    <li>
-      <select id="provID" name="provID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </li><br>
-    <li>
-      <label for="facliityID">facilityID</label>
-    </li>
-    <li>
-      <select id="facilityID" name="facilityID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </li><br>
-  </ul>
+  <form action="/facilitiesProviders" method="POST">
+    <input class="button" type="submit" value="SEARCH">
+    <input class="button" type="reset" value="RESET">
+      <ul class="search">
+        <li>
+          <label for="provFacID">provFacID</label>
+        </li>
+        <li>
+          <input type="number" id="provFacID" name="provFacID">
+        </li><br>
+        <li>
+          <label for="provID">provID</label>
+        </li>
+        <li>
+          <select id="provID" name="provID">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </li><br>
+        <li>
+          <label for="facliityID">facilityID</label>
+        </li>
+        <li>
+          <select id="facilityID" name="facilityID">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </li><br>
+      </ul>
+  </form>
 {% endblock %}
 
 {% block table %}

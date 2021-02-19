@@ -16,32 +16,36 @@
 {% endblock %}
 
 {% block search %}
-  <ul class="search">
-    <li>
-      <label for="provID">provID</label>
-    </li>
-    <li>
-      <input type="number" id="provID" name="provID">
-    </li><br>
-    <li>
-      <label for="provFirstName">provFirstName</label>
-    </li>
-    <li>
-      <input type="text" id="provFirstName" name="provFirstName">
-    </li><br>
-    <li>
-      <label for="provLastName">provLastName</label>
-    </li>
-    <li>
-      <input type="text" id="provLastName" name="provLastName">
-    </li><br>
-    <li>
-      <label for="provSpecialty">provSpecialty</label>
-    </li>
-    <li>
-      <input type="text" id="provSpecialty" name="provSpecialty">
-    </li><br>
-  </ul>
+  <form action="/providers" method="POST">
+    <input class="button" type="submit" value="SEARCH">
+    <input class="button" type="reset" value="RESET">
+      <ul class="search">
+        <li>
+          <label for="provID">provID</label>
+        </li>
+        <li>
+          <input type="number" id="provID" name="provID">
+        </li><br>
+        <li>
+          <label for="provFirstName">provFirstName</label>
+        </li>
+        <li>
+          <input type="text" id="provFirstName" name="provFirstName">
+        </li><br>
+        <li>
+          <label for="provLastName">provLastName</label>
+        </li>
+        <li>
+          <input type="text" id="provLastName" name="provLastName">
+        </li><br>
+        <li>
+          <label for="provSpecialty">provSpecialty</label>
+        </li>
+        <li>
+          <input type="text" id="provSpecialty" name="provSpecialty">
+        </li><br>
+      </ul>
+  </form>
 {% endblock %}
 
 {% block table %}
@@ -76,39 +80,19 @@
         </form>
       </tr>
       <div class="show">
-      <tr>
-      <form>
-        <td><input type="number" id="provID" name="provID" value=2 disabled></td>
-        <td><input type="text" id="provFirstName" name="provFirstName" value="Mandy"></td>
-        <td><input type="text" id="provLastName" name="provLastName" value="Boeman"></td>
-        <td><input type="text" id="provSpecialty" name="provSpecialty" value="Dermatology"></td>
-        <td><input class="button" type="submit" value="See Patient"></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
-      <tr>
-      <form>
-        <td><input type="number" id="provID" name="provID" value=2 disabled></td>
-        <td><input type="text" id="provFirstName" name="provFirstName" value="Mandy"></td>
-        <td><input type="text" id="provLastName" name="provLastName" value="Boeman"></td>
-        <td><input type="text" id="provSpecialty" name="provSpecialty" value="Dermatology"></td>
-        <td><input class="button" type="submit" value="See Patient"></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
-      <tr>
-      <form>
-        <td><input type="number" id="provID" name="provID" value=2 disabled></td>
-        <td><input type="text" id="provFirstName" name="provFirstName" value="Mandy"></td>
-        <td><input type="text" id="provLastName" name="provLastName" value="Boeman"></td>
-        <td><input type="text" id="provSpecialty" name="provSpecialty" value="Dermatology"></td>
-        <td><input class="button" type="submit" value="See Provider"></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
+        {% for r in rows %}
+          <tr>
+          <form>
+            <td><input type="number" id="provID" name="provID" value="{{ r[0] }}" disabled></td>
+            <td><input type="text" id="provFirstName" name="provFirstName" value="{{ r[1] }}"></td>
+            <td><input type="text" id="provLastName" name="provLastName" value="{{ r[2] }}"></td>
+            <td><input type="text" id="provSpecialty" name="provSpecialty" value="{{ r[3] }}"></td>
+            <td><input class="button" type="submit" value="See Patient"></td>
+            <td><input class="button" type="submit" value="Edit"></td>
+            <td><input class="button" type="submit" value="Delete"></td>
+          </form>
+          </tr>
+        {% endfor %}
       </div>
     </tbody>
   </table>

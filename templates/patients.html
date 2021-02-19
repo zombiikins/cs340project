@@ -16,58 +16,62 @@
 {% endblock %}
 
 {% block search %}
-  <ul class="search">
-    <li>
-      <label for="filter">filter</label>
-    </li>
-    <li>
-      <select id="filter" name="filter">
-        <option value="0"> age less than 12 </option>
-        <option value="0"> age 12-21 </option>
-        <option value="0"> age 21-65 </option>
-        <option value="0"> age larger than 65 </option>
-      </select>
-    </li><br>
-    <li>
-      <label for="patientID">patientID</label>
-    </li>
-    <li>
-      <input type="number" id="patientID" name="patientID">
-    </li><br>
-    <li>
-      <label for="fname">firstName</label>
-    </li>
-    <li>
-      <input type="text" id="fname" name="fname">
-    </li><br>
-    <li>
-      <label for="lname">lastName</label>
-    </li>
-    <li>
-      <input type="text" id="lname" name="lname">
-    </li><br>
-    <li>
-      <label for="age">age</label>
-    </li>
-    <li>
-      <input type="number" id="age" name="age">
-    </li><br>
-    <li>
-      <label for="gender">gender</label>
-    </li>
-    <li>
-      <select id="gender" name="gender">
-        <option value="m">male</option>
-        <option value="f">female</option>
-      </select>
-    </li>
-    <li>
-      <label for="phoneNumber">phoneNumber</label>
-    </li>
-    <li>
-      <input type="text" id="phoneNumber" name="phoneNumber">
-    </li>
-  </ul>
+  <form action="/patients" method="POST">
+    <input class="button" type="submit" value="SEARCH">
+    <input class="button" type="reset" value="RESET">
+      <ul class="search">
+        <li>
+          <label for="filter">filter</label>
+        </li>
+        <li>
+          <select id="filter" name="filter">
+            <option value="0"> age less than 12 </option>
+            <option value="0"> age 12-21 </option>
+            <option value="0"> age 21-65 </option>
+            <option value="0"> age larger than 65 </option>
+          </select>
+        </li><br>
+        <li>
+          <label for="patientID">patientID</label>
+        </li>
+        <li>
+          <input type="number" id="patientID" name="patientID">
+        </li><br>
+        <li>
+          <label for="fname">firstName</label>
+        </li>
+        <li>
+          <input type="text" id="fname" name="fname">
+        </li><br>
+        <li>
+          <label for="lname">lastName</label>
+        </li>
+        <li>
+          <input type="text" id="lname" name="lname">
+        </li><br>
+        <li>
+          <label for="age">age</label>
+        </li>
+        <li>
+          <input type="number" id="age" name="age">
+        </li><br>
+        <li>
+          <label for="gender">gender</label>
+        </li>
+        <li>
+          <select id="gender" name="gender">
+            <option value="m">male</option>
+            <option value="f">female</option>
+          </select>
+        </li>
+        <li>
+          <label for="phoneNumber">phoneNumber</label>
+        </li>
+        <li>
+          <input type="text" id="phoneNumber" name="phoneNumber">
+        </li>
+      </ul>
+  </form>
 {% endblock %}
 
 {% block table %}

@@ -16,38 +16,42 @@
 {% endblock %}
 
 {% block search %}
-  <ul class="search">
-    <li>
-      <label for="faclityID">facilityID</label>
-    </li>
-    <li>
-      <input type="number" id="faclityID" name="faclityID">
-    </li><br>
-    <li>
-      <label for="facilityAddress">facilityAddress</label>
-    </li>
-    <li>
-      <input type="text" id="facilityAddress" name="facilityAddress">
-    </li><br>
-    <li>
-      <label for="facilityCity">facilityCity</label>
-    </li>
-    <li>
-      <input type="text" id="facilityCity" name="facilityCity">
-    </li><br>
-    <li>
-      <label for="facilityState">facilityState</label>
-    </li>
-    <li>
-      <input type="text" id="facilityState" name="facilityState">
-    </li><br>
-    <li>
-      <label for="zip">zip</label>
-    </li>
-    <li>
-      <input type="text" id="zip" name="zip">
-    </li><br>
-  </ul>
+  <form action="/providers" method="POST">
+    <input class="button" type="submit" value="SEARCH">
+    <input class="button" type="reset" value="RESET">
+      <ul class="search">
+        <li>
+          <label for="faclityID">facilityID</label>
+        </li>
+        <li>
+          <input type="number" id="faclityID" name="faclityID">
+        </li><br>
+        <li>
+          <label for="facilityAddress">facilityAddress</label>
+        </li>
+        <li>
+          <input type="text" id="facilityAddress" name="facilityAddress">
+        </li><br>
+        <li>
+          <label for="facilityCity">facilityCity</label>
+        </li>
+        <li>
+          <input type="text" id="facilityCity" name="facilityCity">
+        </li><br>
+        <li>
+          <label for="facilityState">facilityState</label>
+        </li>
+        <li>
+          <input type="text" id="facilityState" name="facilityState">
+        </li><br>
+        <li>
+          <label for="zip">zip</label>
+        </li>
+        <li>
+          <input type="text" id="zip" name="zip">
+        </li><br>
+      </ul>
+  </form>
 {% endblock %}
 
 {% block table %}

@@ -16,50 +16,54 @@
 {% endblock %}
 
 {% block search %}
-  <ul class="search">
-    <li>
-      <label for="claimID">claimID</label>
-    </li>
-    <li>
-      <input type="number" id="claimID" name="claimID">
-    </li><br>
-    <li>
-      <label for="patientID">patientID</label>
-    </li>
-    <li>
-      <input type="number" id="patientID" name="patientID">
-    </li><br>
-    <li>
-      <label for="patProvID">patProvID</label>
-    </li>
-    <li>
-      <input type="number" id="patProvID" name="patProvID">
-    </li><br>
-    <li>
-      <label for="provFacID">provFacID</label>
-    </li>
-    <li>
-      <input type="number" id="provFacID" name="provFacID">
-    </li><br>
-    <li>
-      <label for="dateOfService">dateOfService</label>
-    </li>
-    <li>
-      <input type="date" id="dateOfService" name="dateOfService">
-    </li>
-    <li>
-      <label for="procedure">procedure</label>
-    </li>
-    <li>
-      <input type="text" id="procedure" name="procedure">
-    </li><br>
-    <li>
-      <label for="billedAmount">billedAmount</label>
-    </li>
-    <li>
-      <input type="number" id="billedAmount" name="billedAmount ">
-    </li><br>
-  </ul>
+  <form action="/" method="POST">
+    <input class="button" type="submit" value="SEARCH">
+    <input class="button" type="reset" value="RESET">
+        <ul class="search">
+          <li>
+            <label for="claimID">claimID</label>
+          </li>
+          <li>
+            <input type="number" id="claimID" name="claimID">
+          </li><br>
+          <li>
+            <label for="patientID">patientID</label>
+          </li>
+          <li>
+            <input type="number" id="patientID" name="patientID">
+          </li><br>
+          <li>
+            <label for="patProvID">patProvID</label>
+          </li>
+          <li>
+            <input type="number" id="patProvID" name="patProvID">
+          </li><br>
+          <li>
+            <label for="provFacID">provFacID</label>
+          </li>
+          <li>
+            <input type="number" id="provFacID" name="provFacID">
+          </li><br>
+          <li>
+            <label for="dateOfService">dateOfService</label>
+          </li>
+          <li>
+            <input type="date" id="dateOfService" name="dateOfService">
+          </li>
+          <li>
+            <label for="procedure">procedure</label>
+          </li>
+          <li>
+            <input type="text" id="procedure" name="procedure">
+          </li><br>
+          <li>
+            <label for="billedAmount">billedAmount</label>
+          </li>
+          <li>
+            <input type="number" id="billedAmount" name="billedAmount ">
+          </li><br>
+        </ul>
+  </form>
 {% endblock %}
 
 {% block table %}

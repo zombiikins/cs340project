@@ -16,34 +16,38 @@
 {% endblock %}
 
 {% block search %}
-  <ul class="search">
-    <li>
-      <label for="patProvID">patProvID</label>
-    </li>
-    <li>
-      <input type="number" id="patProvID" name="patProvID">
-    </li><br>
-    <li>
-      <label for="patientID">patientID</label>
-    </li>
-    <li>
-      <select id="patientID" name="patientID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </li><br>
-    <li>
-      <label for="provID">provID</label>
-    </li>
-    <li>
-      <select id="provID" name="provID">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </li><br>
-  </ul>
+  <form action="/patientsProviders" method="POST">
+    <input class="button" type="submit" value="SEARCH">
+    <input class="button" type="reset" value="RESET">
+      <ul class="search">
+        <li>
+          <label for="patProvID">patProvID</label>
+        </li>
+        <li>
+          <input type="number" id="patProvID" name="patProvID">
+        </li><br>
+        <li>
+          <label for="patientID">patientID</label>
+        </li>
+        <li>
+          <select id="patientID" name="patientID">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </li><br>
+        <li>
+          <label for="provID">provID</label>
+        </li>
+        <li>
+          <select id="provID" name="provID">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </li><br>
+      </ul>
+  </form>
 {% endblock %}
 
 {% block table %}

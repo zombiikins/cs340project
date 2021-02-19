@@ -1,9 +1,8 @@
-from flask import Flask, render_template, url_for
-import db_connector as db
+from flask import Flask, render_template, url_for, request, redirect
+from db_connector import connect_to_database, execute_query 
 import os
 
 app = Flask(__name__)
-db_connection = db.connect_to_database()
 
 @app.route("/")
 def index():
@@ -13,9 +12,16 @@ def index():
 def patients():
   return render_template('patients.html')
 
-@app.route("/providers")
+@app.route("/providers", methods=['POST', 'GET'])
 def providers():
-  return render_template('providers.html')
+  db_connection = connect_to_database()
+  if request.method == 'GET':
+    query = 'SELECT * FROM Providers'
+    result = execute_query(db_connection, query).fetchall()
+    return render_template('providers.html', rows=result)
+  
+  elif request.method == 'POST':
+    print(list(request.form.keys())[0])
 
 @app.route("/facilities")
 def facilities():
