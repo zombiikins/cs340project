@@ -1,8 +1,10 @@
 from flask import Flask, render_template, url_for, request, redirect
 from db_connector import connect_to_database, execute_query 
 import os
+from function import delEmptyColumn, colNames, valuesString
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def index():
@@ -21,7 +23,30 @@ def providers():
     return render_template('providers.html', rows=result)
   
   elif request.method == 'POST':
-    print(list(request.form.keys())[0])
+    if list(request.form.keys())[1] == 'provFirstName':
+      a=request.form.to_dict()
+      requestForm = delEmptyColumn(a)
+      cols = colNames(requestForm)
+      vals = valuesString(requestForm)
+
+      query= 'INSERT INTO Providers (' + cols + ') VALUES (' + vals + ')'   
+      execute_query(db_connection, query)
+
+      return redirect('/providers')
+"""  
+    elif list(request.form.keys())[0] == 'provID':
+      provID = request.form['provID']
+      provFirstName = request.form['provFirstName']
+      provLastName = request.form['provLastName']
+      provSpecialty = request.form['provSpecialty']
+      query = 'SELECT * FROM Providers WHERE '
+      
+      if provID == '' and provFirstName == '' and provLastName == '' and provSpecialty == ''
+        return redirect('/providers')
+      if provID:
+        query += 'provID = '+ provID
+      if provFirstName
+"""
 
 @app.route("/facilities")
 def facilities():

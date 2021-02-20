@@ -61,18 +61,18 @@
     </thead>
     <tbody>
       <tr id="add">
-        <form>
+        <form action="/providers" method="POST">
           <td>
             <input type="hidden" id="provID" name="provID">
           </td>
           <td>
-            <input type="text" id="addpfname" name="addpfname">
+            <input type="text" required="required" id="provFirstName" name="provFirstName">
           </td>
           <td>
-            <input type="text" id="addplname" name="addplname">
+            <input type="text" required="required" id="provLastName" name="provLastName">
           </td>
           <td>
-            <input type="text" id="addpsp" name="addpsp">
+            <input type="text" required="required" id="provSpecialty" name="provSpecialty">
           </td>
           <td>
             <input class="button" type="submit" value="ADD">
