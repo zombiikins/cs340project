@@ -20,6 +20,7 @@
     <input class="button" type="submit" value="SEARCH">
     <input class="button" type="reset" value="RESET">
       <ul class="search">
+          <input type="hidden" id="search" name="search">
         <li>
           <label for="provID">provID</label>
         </li>
@@ -63,7 +64,7 @@
       <tr id="add">
         <form action="/providers" method="POST">
           <td>
-            <input type="hidden" id="provID" name="provID">
+            <input type="hidden" id="addrow" name="addrow">
           </td>
           <td>
             <input type="text" required="required" id="provFirstName" name="provFirstName">
@@ -82,14 +83,14 @@
       <div class="show">
         {% for r in rows %}
           <tr>
-          <form>
-            <td><input type="number" id="provID" name="provID" value="{{ r[0] }}" disabled></td>
+          <form action="/providers" method="POST">
+            <td><input type="number" id="provID" name="provID" value="{{ r[0] }}" readonly></td>
             <td><input type="text" id="provFirstName" name="provFirstName" value="{{ r[1] }}"></td>
             <td><input type="text" id="provLastName" name="provLastName" value="{{ r[2] }}"></td>
             <td><input type="text" id="provSpecialty" name="provSpecialty" value="{{ r[3] }}"></td>
             <td><input class="button" type="submit" value="See Patient"></td>
-            <td><input class="button" type="submit" value="Edit"></td>
-            <td><input class="button" type="submit" value="Delete"></td>
+            <td><input class="button" type="submit" name="edit" value="Edit"></td>
+            <td><input class="button" type="submit" name="delete" value="Delete"></td>
           </form>
           </tr>
         {% endfor %}

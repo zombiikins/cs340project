@@ -7,17 +7,17 @@ def delEmptyColumn(requestForm):
   return requestForm
 
 def colNames(requestForm):
-  colstring = ''
+  colString = ''
 
   if len(requestForm) == 1:
     colString = list(requestForm.keys())[0]
   else:
     for k in requestForm.keys():
-      colstring += k+', '
+      colString += k+', '
     
-    colstring = colstring[:-2]
+    colString = colString[:-2]
 
-  return colstring
+  return colString
 
 def valuesString(requestForm):
   valString = ''
@@ -31,3 +31,25 @@ def valuesString(requestForm):
     valString = valString[:-2]
 
   return valString
+
+def conditionString(requestForm):
+  conString = ''
+
+  if len(requestForm) == 1:
+    for k, v in requestForm.items():
+      conString = k + ' = ' + "'" + v + "'"
+  else:
+    for k, v in requestForm.items():
+      conString += k + ' = ' +  "'" + v + "'" + ' AND '
+    
+    conString = conString[:-5]
+
+  return conString
+
+def updateString(requestForm):
+  updateStr = ''
+  for k, v in requestForm.items():
+    updateStr += k + ' = ' +  "'" + v + "'" + ', ' 
+  
+  updateStr = updateStr[:-2]
+  return updateStr
