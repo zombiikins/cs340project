@@ -9,9 +9,31 @@ app = Flask(__name__)
 def index():
   return render_template('index.html')
 
-@app.route("/patients")
+@app.route("/patients", methods=["GET", "POST"])
 def patients():
-  return render_template('patients.html')
+  with connect_to_database() as db_connection: 
+    if request.method == "POST":
+      if "addfname" in request.form.keys():
+        # add the new guy
+        query = "INSERT INTO Patients (firstName, lastName, age, gender, phoneNumber, email) VALUES (%s, %s, %b, %s, %s, %s)"
+        results = execute_query(db_connection, query, (
+          request.form["addfname"], request.form["addlname"], request.form["addage"], 
+          request.form["addgender"].upper(), request.form["addpnum"], request.form["addemail"]))
+        
+    query = "SELECT * FROM Patients"
+
+    if request.method == "POST" and list(request.form.keys())[0] == "search":
+      query += " WHERE "
+      a = request.form.to_dict()
+      requestForm = delEmptyColumn(a)
+      query += conditionString(requestForm)
+    
+    print(query)
+
+    results = execute_query(db_connection, query)
+    patients = results.fetchall()
+    return render_template('patients.html', patients=patients)
+        
 
 @app.route("/providers", methods=['POST', 'GET', 'PUT'])
 def providers():
