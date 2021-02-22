@@ -1,3 +1,6 @@
+# this file contain several help functions to concatenate the query string
+
+# function to delete the key has no value
 def delEmptyColumn(requestForm):
   keys = list(requestForm.keys())
   for k in keys:
@@ -6,6 +9,8 @@ def delEmptyColumn(requestForm):
   
   return requestForm
 
+# function to return a string like:
+# key1, key2, ... keyN
 def colNames(requestForm):
   colString = ''
 
@@ -19,6 +24,8 @@ def colNames(requestForm):
 
   return colString
 
+# function to return a string like:
+# 'val1', 'val2', ... 'valN'
 def valuesString(requestForm):
   valString = ''
 
@@ -32,6 +39,8 @@ def valuesString(requestForm):
 
   return valString
 
+# function to return a string like:
+# key1 = 'val1' AND key2 = 'val2' AND ... keyN = 'valN'
 def conditionString(requestForm):
   conString = ''
 
@@ -46,6 +55,8 @@ def conditionString(requestForm):
 
   return conString
 
+# function to return a string like:
+# key1 = 'val1', key2 = 'val2', ... keyN = 'valN'
 def updateString(requestForm):
   updateStr = ''
   for k, v in requestForm.items():

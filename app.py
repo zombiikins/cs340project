@@ -35,7 +35,7 @@ def patients():
     return render_template('patients.html', patients=patients)
         
 
-@app.route("/providers", methods=['POST', 'GET', 'PUT'])
+@app.route("/providers", methods=['POST', 'GET'])
 def providers():
   db_connection = connect_to_database()
 
@@ -47,7 +47,7 @@ def providers():
   
   elif request.method == 'POST':
     # insert new row to the table
-    if list(request.form.keys())[0] == 'addrow':
+    if 'addrow' in request.form:
       a = request.form.to_dict()
       requestForm = delEmptyColumn(a)
       cols = colNames(requestForm)
@@ -59,7 +59,7 @@ def providers():
       return redirect('/providers')
     
     # search/filter the table
-    elif list(request.form.keys())[0] == 'search':
+    elif 'search' in request.form:
       a = request.form.to_dict()
       requestForm = delEmptyColumn(a)
       query = 'SELECT * FROM Providers WHERE '
@@ -81,7 +81,8 @@ def providers():
       query += updateString(a) + " WHERE provID = '" + provID + "'"
       execute_query(db_connection, query)
       return redirect('/providers')
-      
+
+    # delete the row of the table  
     elif 'delete' in request.form:
       provID = request.form['provID']
       query = 'DELETE FROM Providers WHERE '
@@ -90,17 +91,143 @@ def providers():
       return redirect('/providers')
 
 
-@app.route("/facilities")
+@app.route("/facilities", methods=['POST', 'GET'])
 def facilities():
-  return render_template('facilities.html')
+  db_connection = connect_to_database()
+
+  # read and show current data of the table 
+  if request.method == 'GET':
+    query = 'SELECT * FROM Facilities'
+    result = execute_query(db_connection, query).fetchall()
+    return render_template('facilities.html', rows=result)
+  
+  elif request.method == 'POST':
+    # insert new row to the table
+    if 'addrow' in request.form:
+      a = request.form.to_dict()
+      requestForm = delEmptyColumn(a)
+      cols = colNames(requestForm)
+      vals = valuesString(requestForm)
+
+      query= 'INSERT INTO Facilities (' + cols + ') VALUES (' + vals + ')'   
+      execute_query(db_connection, query)
+
+      return redirect('/facilities')
+    
+    # search/filter the table
+    elif 'search' in request.form:
+      a = request.form.to_dict()
+      requestForm = delEmptyColumn(a)
+      query = 'SELECT * FROM Facilities WHERE '
+      
+      if len(requestForm) == 0:
+        return redirect('/facilities')
+      else:
+        query += conditionString(requestForm)
+        result = execute_query(db_connection, query).fetchall()
+        return render_template('facilities.html', rows=result)
+    
+    # update the row of the table
+    elif 'edit' in request.form:
+      facilityID = request.form['facilityID']
+      query = 'UPDATE Facilities SET '
+      a = request.form.to_dict()
+      del a['facilityID']
+      del a['edit']
+      query += updateString(a) + " WHERE facilityID = '" + facilityID + "'"
+      execute_query(db_connection, query)
+      return redirect('/facilities')
+
+    # delete the row of the table  
+    elif 'delete' in request.form:
+      facilityID = request.form['facilityID']
+      query = 'DELETE FROM Facilities WHERE '
+      query += "facilityID = '" + facilityID + "'"
+      execute_query(db_connection, query)
+      return redirect('/facilities')
+
+    # see related providers by the selected facility
+    elif 'seeProvider' in request.form:
+      facilityID = request.form['facilityID']
+      query = "SELECT * FROM ProvidersFacilities WHERE facilityID = '"
+      query += facilityID + "'"
+      pQuery = 'SELECT provID FROM Providers'
+      fQuery = 'SELECT facilityID from Facilities'
+      result = execute_query(db_connection, query).fetchall()
+      pResult = execute_query(db_connection, pQuery).fetchall()
+      fResult = execute_query(db_connection, fQuery).fetchall()
+      return render_template('facilitiesProviders.html', rows=result, pid=pResult,
+      fid=fResult)
+      
 
 @app.route("/patientsProviders")
 def patientsProviders():
   return render_template('patientsProviders.html')
 
-@app.route("/facilitiesProviders")
+@app.route("/facilitiesProviders", methods=['POST', 'GET'])
 def facilitiesProviders():
-  return render_template('facilitiesProviders.html')
+  db_connection = connect_to_database()
+
+  # read and show current data of the table 
+  if request.method == 'GET':
+    query = 'SELECT * FROM ProvidersFacilities'
+    pQuery = 'SELECT provID FROM Providers'
+    fQuery = 'SELECT facilityID from Facilities'
+    result = execute_query(db_connection, query).fetchall()
+    pResult = execute_query(db_connection, pQuery).fetchall()
+    fResult = execute_query(db_connection, fQuery).fetchall()
+    return render_template('facilitiesProviders.html', rows=result, pid=pResult,
+     fid=fResult)
+  
+  elif request.method == 'POST':
+    # insert new row to the table
+    if 'addrow' in request.form:
+      a = request.form.to_dict()
+      requestForm = delEmptyColumn(a)
+      cols = colNames(requestForm)
+      vals = valuesString(requestForm)
+
+      query= 'INSERT INTO ProvidersFacilities (' + cols + ') VALUES (' + vals + ')'   
+      execute_query(db_connection, query)
+
+      return redirect('/facilitiesProviders')
+    
+    # search/filter the table
+    elif 'search' in request.form:
+      a = request.form.to_dict()
+      requestForm = delEmptyColumn(a)
+      query = 'SELECT * FROM ProvidersFacilities WHERE '
+      
+      if len(requestForm) == 0:
+        return redirect('/facilitiesProviders')
+      else:
+        query += conditionString(requestForm)
+        pQuery = 'SELECT provID FROM Providers'
+        fQuery = 'SELECT facilityID from Facilities'
+        result = execute_query(db_connection, query).fetchall()
+        pResult = execute_query(db_connection, pQuery).fetchall()
+        fResult = execute_query(db_connection, fQuery).fetchall()
+        return render_template('facilitiesProviders.html', rows=result, pid=pResult,
+        fid=fResult)
+    
+    # update the row of the table
+    elif 'edit' in request.form:
+      provFacID = request.form['provFacID']
+      query = 'UPDATE ProvidersFacilities SET '
+      a = request.form.to_dict()
+      del a['provFacID']
+      del a['edit']
+      query += updateString(a) + " WHERE provFacID = '" + provFacID + "'"
+      execute_query(db_connection, query)
+      return redirect('/facilitiesProviders')
+
+    # delete the row of the table  
+    elif 'delete' in request.form:
+      provFacID = request.form['provFacID']
+      query = 'DELETE FROM ProvidersFacilities WHERE '
+      query += "provFacID = '" + provFacID + "'"
+      execute_query(db_connection, query)
+      return redirect('/facilitiesProviders') 
 
   
 if __name__ == "__main__":
