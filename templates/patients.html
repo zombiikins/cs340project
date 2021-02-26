@@ -81,29 +81,30 @@
     <tbody>
       <tr id="add">
         <form method="post" action="patients">
+          <input type="hidden" id="addrow" name="addrow">
           <td>
             <input type="hidden" id="patientID" name="patientID">
           </td>
           <td>
-            <input type="text" id="addfname" name="addfname">
+            <input type="text" id="firstName" name="firstName">
           </td>
           <td>
-            <input type="text" id="addlname" name="addlname">
+            <input type="text" id="lastName" name="lastName">
           </td>
           <td>
-            <input type="number" id="addage" name="addage">
+            <input type="number" id="age" name="age">
           </td>
           <td>
-            <select id="addgender" name="addgender">
+            <select id="gender" name="gender">
               <option value="m">male</option>
               <option value="f">female</option>
             </select>
           </td>
           <td>
-            <input type="text" id="addpnum" name="addpnum">
+            <input type="text" id="phoneNumber" name="phoneNumber">
           </td>
           <td>
-            <input type="email" id="addemail" name="addemail">
+            <input type="email" id="email" name="email">
           </td>
           <td>
             <input class="button" type="submit" value="ADD">
@@ -126,7 +127,7 @@
             </td>
             <td><input type="text" id="phoneNumber" name="phoneNumber" value="{{patient[5]}}"></td>
             <td><input type="email" id="email" name="email" value="{{patient[6]}}"></td>
-            <td><input class="button" type="submit" value="See Provider"></td>
+            <td><input class="button" type="submit" name="seeProvider" value="See Provider"></td>
             <td><input class="button" type="submit" value="Edit"></td>
             <td><input class="button" type="submit" value="Delete"></td>
           </form>

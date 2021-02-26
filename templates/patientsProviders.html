@@ -20,6 +20,7 @@
     <input class="button" type="submit" value="SEARCH">
     <input class="button" type="reset" value="RESET">
       <ul class="search">
+        <input type="hidden" id="search" name="search">
         <li>
           <label for="patProvID">patProvID</label>
         </li>
@@ -31,9 +32,10 @@
         </li>
         <li>
           <select id="patientID" name="patientID">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option value=""></option>
+            {% for patient in patients %}
+              <option value="{{patient[0]}}">{{patient[0]}}</option>
+            {% endfor %}
           </select>
         </li><br>
         <li>
@@ -41,9 +43,10 @@
         </li>
         <li>
           <select id="provID" name="provID">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option value=""></option>
+            {% for provider in providers %}
+              <option value="{{provider[0]}}">{{provider[0]}}</option>
+            {% endfor %}
           </select>
         </li><br>
       </ul>
@@ -62,15 +65,24 @@
     </thead>
     <tbody>
       <tr id="add">
-        <form>
+        <form action="/patientsProviders" method="POST">
+          <input type="hidden" id="addrow" name="addrow">
           <td>
             <input type="hidden" id="patProvID" name = "patProvID">
           </td>
           <td>
-            <input type="number" id="addPID" name="addPID">
+            <select id="patientID" name="patientID">
+              {% for patient in patients %}
+                <option value="{{patient[0]}}">{{patient[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
-            <input type="number" id="addProvID" name="addProvID">
+            <select id="provID" name="provID">
+              {% for provider in providers %}
+                <option value="{{provider[0]}}">{{provider[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
             <input class="button" type="submit" value="ADD">
@@ -78,24 +90,17 @@
         </form>
       </tr>
       <div class="show">
-      <tr>
-      <form>
-        <td><input type="number" id="patProvID" name="patProvID" value=1 disabled></td>
-        <td><input type="number" id="patientID" name="patientID" value=2 ></td>
-        <td><input type="number" id="provID" name="provID" value=3 ></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
-      <tr>
-      <form>
-        <td><input type="number" id="patProvID" name="patProvID" value=2 disabled></td>
-        <td><input type="number" id="patientID" name="patientID" value=2 ></td>
-        <td><input type="number" id="provID" name="provID" value=3 ></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
+      {% for r in rows %}
+        <tr>
+        <form>
+          <td><input type="number" id="patProvID" name="patProvID" value="{{ r[0] }}" readonly></td>
+          <td><input type="number" id="patientID" name="patientID" value="{{ r[1] }}"></td>
+          <td><input type="number" id="provID" name="provID" value="{{ r[2] }}"></td>
+          <td><input class="button" type="submit" value="Edit"></td>
+          <td><input class="button" type="submit" value="Delete"></td>
+        </form>
+        </tr>
+      {% endfor %}
       </div>
     </tbody>
   </table>
