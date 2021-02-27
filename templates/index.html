@@ -19,7 +19,8 @@
   <form action="/" method="POST">
     <input class="button" type="submit" value="SEARCH">
     <input class="button" type="reset" value="RESET">
-        <ul class="search">
+        <ul class="search">  <li>
+          <input type="hidden" id="search" name="search">
           <li>
             <label for="claimID">claimID</label>
           </li>
@@ -51,10 +52,10 @@
             <input type="date" id="dateOfService" name="dateOfService">
           </li>
           <li>
-            <label for="procedure">procedure</label>
+            <label for="procedure">procedureDesc</label>
           </li>
           <li>
-            <input type="text" id="procedure" name="procedure">
+            <input type="text" id="procedureDesc" name="procedureDesc">
           </li><br>
           <li>
             <label for="billedAmount">billedAmount</label>
@@ -82,27 +83,28 @@
     </thead>
     <tbody>
       <tr id="add">
-        <form>
+        <form method="POST">
+          <input type="hidden" id="addrow" name="addrow">
           <td>
             <input type="hidden" id="claimID" name="claimID">
           </td>
           <td>
-            <input type="number" id="addpatientID" name="addpatientID">
+            <input type="number" id="patientID" name="patientID">
           </td>
           <td>
-            <input type="number" id="addprovID" name="addprovID">
+            <input type="number" id="patProvID" name="patProvID">
           </td>
           <td>
-            <input type="number" id="addfacilityID" name="addfacilityID">
+            <input type="number" id="provFacID" name="provFacID">
           </td>
           <td>
-            <input type="date" id="adddateOfService" name="adddateOfService">
+            <input type="date" id="dateOfService" name="dateOfService">
           </td>
           <td>
-            <input type="text" id="addprocedure" name="addprocedure">
+            <input type="text" id="procedureDesc" name="procedureDesc">
           </td>
           <td>
-            <input type="number" id="addbilledAmount" name="addbilledAmount">
+            <input type="number" id="billedAmount" name="billedAmount">
           </td>
           <td>
             <input class="button" type="submit" value="ADD">
@@ -110,32 +112,21 @@
         </form>
       </tr>
       <div class="show">
-      <tr>
-      <form>
-        <td><input type="number" id="claimID" name="claimID" value=1 disabled></td>
-        <td><input type="number" id="patientID" name="patientID" value="2"></td>
-        <td><input type="text" id="provID" name="provID" value="2"></td>
-        <td><input type="text" id="facilityID" name="facilityID" value="NULL"></td>
-        <td><input type="date" id="dateOfService" name="dateOfService" value="2021-01-30"></td>
-        <td><input type="text" id="procedure" name="procedure" value="tele visit"></td>
-        <td><input type="number" id="billedAmount" name="billedAmount" value="150.00"></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
-      <tr>
-      <form>
-        <td><input type="number" id="claimID" name="claimID" value=1 disabled></td>
-        <td><input type="number" id="patientID" name="patientID" value="4"></td>
-        <td><input type="text" id="provID" name="provID" value="NULL"></td>
-        <td><input type="text" id="facilityID" name="facilityID" value="3"></td>
-        <td><input type="date" id="dateOfService" name="dateOfService" value="2021-01-30"></td>
-        <td><input type="text" id="procedure" name="procedure" value="COVID-19 Vaccination"></td>
-        <td><input type="number" id="billedAmount" name="billedAmount" value="150.00"></td>
-        <td><input class="button" type="submit" value="Edit"></td>
-        <td><input class="button" type="submit" value="Delete"></td>
-      </form>
-      </tr>
+      {% for claim in claims %}
+        <tr>
+          <form action="/" method="POST">
+            <td><input type="number" id="claimID" name="claimID" value="{{ claim [0] }}" readonly></td>
+            <td><input type="number" id="patientID" name="patientID" value="{{ claim [1] }}"></td>
+            <td><input type="text" id="patProvID" name="patProvID" value="{{ claim [2] }}"></td>
+            <td><input type="text" id="provFacID" name="provFacID" value="{{ claim [3] }}"></td>
+            <td><input type="date" id="dateOfService" name="dateOfService" value="{{ claim [4] }}"></td>
+            <td><input type="text" id="procedureDesc" name="procedureDesc" value="{{ claim [5] }}"></td>
+            <td><input type="number" id="billedAmount" name="billedAmount" value="{{ claim [6] }}"></td>
+            <td><input class="button" type="submit" name="edit" value="Edit"></td>
+            <td><input class="button" type="submit" name="delete" value="Delete"></td>
+          </form>
+        </tr>
+      {% endfor %}
       </div>
     </tbody>
   </table>
