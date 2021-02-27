@@ -93,15 +93,15 @@
       <div class="show">
         {% for r in rows %}
           <tr>
-          <form action="/facilities" method="POST">
-            <td><input type="number" id="facilityID" name="facilityID" value="{{ r[0] }}" readonly></td>
-            <td><input type="text" id="facilityAddress" name="facilityAddress" value="{{ r[1] }}"></td>
-            <td><input type="text" id="facilityCity" name="facilityCity" value="{{ r[2] }}"></td>
-            <td><input type="text" id="facilityState" name="facilityState" value="{{ r[3] }}"></td>
-            <td><input type="text" id="facilityZip" name="facilityZip" value="{{ r[4] }}"></td>
-            <td><input class="button" type="submit" name="seeProvider" value="See Provider"></td>
-            <td><input class="button" type="submit" name="edit" value="Edit"></td>
-            <td><input class="button" type="submit" name="delete" value="Delete"></td>
+          <form id="row{{loop.index}}" action="/facilities" method="POST">
+            <td><input type="number" id="facilityID" name="facilityID" value="{{ r[0] }}" disabled ></td>
+            <td><input type="text" id="facilityAddress" name="facilityAddress" value="{{ r[1] }}" disabled></td>
+            <td><input type="text" id="facilityCity" name="facilityCity" value="{{ r[2] }}" disabled></td>
+            <td><input type="text" id="facilityState" name="facilityState" value="{{ r[3] }}" disabled></td>
+            <td><input type="text" id="facilityZip" name="facilityZip" value="{{ r[4] }}" disabled></td>
+            <td><input id="{{loop.index}}" class="button" type="button" name="seeProvider" value="See Provider" onclick="editClick(event)"></td>
+            <td><input id="{{loop.index}}" class="button" type="button" name="edit" value="Edit" onclick="editClick(event)"></td>
+            <td><input id="{{loop.index}}" class="button" type="button" name="delete" value="Delete" onclick="editClick(event)"></td>
           </form>
           </tr>
         {% endfor %}
