@@ -29,14 +29,14 @@ function editClick(event){
     row[0].readOnly = "true";
   }
   else if(event.target.value == "Delete"){
-    event.target.value = "Confirm?";
-  }
-  else if(event.target.value == "Confirm?"){
-    event.target.type = "submit";
-    var id = "row" + event.target.id;
-    var row = document.getElementById(id).elements;
-    for(var i=0;i<row.length;i++){
-      row[i].disabled = false;
+    var ans = confirm("Are you sure to delete?");
+    if(ans){
+      event.target.type = "submit";
+      var id = "row" + event.target.id;
+      var row = document.getElementById(id).elements;
+      for(var i=0;i<row.length;i++){
+        row[i].disabled = false;
+      }
     }
   }
 }
