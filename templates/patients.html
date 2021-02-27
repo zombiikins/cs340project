@@ -50,6 +50,7 @@
         </li>
         <li>
           <select id="gender" name="gender">
+              <option value=""></option>
             <option value="m">male</option>
             <option value="f">female</option>
           </select>
@@ -114,13 +115,13 @@
       <div class="show">
       {% for patient in patients %} 
         <tr>
-          <form method="post" action="patients">
-            <td><input type="number" id="patientID" name="patientID" value={{patient[0]}} disabled></td>
-            <td><input type="text" id="fname" name="fname" value="{{patient[1]}}"></td>
-            <td><input type="text" id="lname" name="lname" value="{{patient[2]}}"></td>
+          <form method="post" action="/patients">
+            <td><input type="number" id="patientID" name="patientID" value={{patient[0]}} readonly></td>
+            <td><input type="text" id="firstName" name="firstName" value="{{patient[1]}}"></td>
+            <td><input type="text" id="lastName" name="lastName" value="{{patient[2]}}"></td>
             <td><input type="number" id="age" name="age" value={{patient[3]}}></td>
             <td>
-                <select id="addgender" name="addgender">
+                <select id="gender" name="gender">
                   <option {% if patient[4] == "M" %} selected {% endif %} value="m">male</option>
                   <option {% if patient[4] == "F" %} selected {% endif %} value="f">female</option>
                 </select>
@@ -128,8 +129,8 @@
             <td><input type="text" id="phoneNumber" name="phoneNumber" value="{{patient[5]}}"></td>
             <td><input type="email" id="email" name="email" value="{{patient[6]}}"></td>
             <td><input class="button" type="submit" name="seeProvider" value="See Provider"></td>
-            <td><input class="button" type="submit" value="Edit"></td>
-            <td><input class="button" type="submit" value="Delete"></td>
+            <td><input class="button" type="submit" name="edit" value="Edit"></td>
+            <td><input class="button" type="submit" name="delete" value="Delete"></td>
           </form>
         </tr>
       {% endfor %}

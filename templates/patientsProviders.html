@@ -92,12 +92,12 @@
       <div class="show">
       {% for r in rows %}
         <tr>
-        <form>
+        <form action="/patientsProviders" method="POST">
           <td><input type="number" id="patProvID" name="patProvID" value="{{ r[0] }}" readonly></td>
           <td><input type="number" id="patientID" name="patientID" value="{{ r[1] }}"></td>
           <td><input type="number" id="provID" name="provID" value="{{ r[2] }}"></td>
-          <td><input class="button" type="submit" value="Edit"></td>
-          <td><input class="button" type="submit" value="Delete"></td>
+          <td><input class="button" type="submit" name="edit" value="Edit"></td>
+          <td><input class="button" type="submit" name="delete" value="Delete"></td>
         </form>
         </tr>
       {% endfor %}
