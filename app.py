@@ -8,28 +8,63 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
   with connect_to_database() as db_connection: 
-    if request.method == "POST":
-      if "addrow" in request.form.keys():
-        # add the new guy
+    # read and show current data of the table 
+    if request.method == "GET":
+      query = "SELECT * FROM Claims"
+      result = execute_query(db_connection, query).fetchall()
+      return render_template("index.html", claims=result)
+
+    elif request.method == "POST":
+      # Add new row to table
+      if "addrow" in request.form:
         a = request.form.to_dict()
         requestForm = delEmptyColumn(a)
         columns = colNames(requestForm)
         values = valuesString(requestForm)
-        
+
         query = "INSERT INTO Claims (" + columns + ") VALUES (" + values + ")"
         execute_query(db_connection, query)
 
-    query = "SELECT * FROM Claims"
+        query = "SELECT * FROM Claims"
 
-    if request.method == "POST" and list(request.form.keys())[0] == "search":
-      query += " WHERE "
-      a = request.form.to_dict()
-      requestForm = delEmptyColumn(a)
-      query += conditionString(requestForm)
-    
-    results = execute_query(db_connection, query)
-    claims = results.fetchall()
-    return render_template('index.html', claims=claims)
+        # Return results for display on the page
+        results = execute_query(db_connection, query)
+        claims = results.fetchall()
+        return render_template('index.html', claims=claims)
+
+      # Implement search on claims
+      elif "search" in request.form:
+        query = "SELECT * FROM Claims"
+        query += " WHERE "
+        a = request.form.to_dict()
+        requestForm = delEmptyColumn(a)
+        query += conditionString(requestForm)
+        # Return results for display on the page
+        results = execute_query(db_connection, query)
+        claims = results.fetchall()
+        return render_template('index.html', claims=claims)
+
+      # update claim information
+      elif 'edit' in request.form:
+        claimid = request.form['claimid']
+        query = "update claims set "
+        a = request.form.to_dict()
+        del a['claimid']
+        del a['edit']
+        query += updatestring(a) + " where claimid = '" + claimid + "'"
+        execute_query(db_connection, query)
+        return redirect('/')
+
+      # delete claim record
+      elif "delete" in request.form:
+        claimid = request.form["claimid"]
+        query = "delete from claims where claimid = '"
+        query += claimid + "'"
+        execute_query(db_connection, query)
+        return redirect('/')   
+
+      else:
+       raise RuntimeError("Request not found") 
 
 @app.route("/patients", methods=["GET", "POST"])
 def patients():
@@ -80,6 +115,25 @@ def patients():
         patResult = execute_query(db_connection, patQuery).fetchall()
         provResult = execute_query(db_connection, provQuery).fetchall()
         return render_template('patientsProviders.html', rows = result, patients = patResult, providers = provResult)
+
+      # Update patient information
+      elif 'edit' in request.form:
+        patientID = request.form['patientID']
+        query = "UPDATE Patients SET "
+        a = request.form.to_dict()
+        del a['patientID']
+        del a['edit']
+        query += updateString(a) + " WHERE patientID = '" + patientID + "'"
+        execute_query(db_connection, query)
+        return redirect('/patients')
+
+      # Delete patient record
+      elif "delete" in request.form:
+        patientID = request.form["patientID"]
+        query = "DELETE FROM Patients WHERE patientID = '"
+        query += patientID + "'"
+        execute_query(db_connection, query)
+        return redirect('/patients')   
 
 @app.route("/providers", methods=['POST', 'GET'])
 def providers():
@@ -245,16 +299,34 @@ def patientsProviders():
 
       # Implement search on patients
       elif "search" in request.form.keys():
-        query = "SELECT * FROM PatientsProviders"
-        query += " WHERE "
+        query = "SELECT * FROM PatientsProviders WHERE "
         a = request.form.to_dict()
         requestForm = delEmptyColumn(a)
         query += conditionString(requestForm)
     
-      # Return results for display on the page
-      results = execute_query(db_connection, query)
-      patProvs = results.fetchall()
-      return render_template('patientsProviders.html', rows=patProvs)
+        # Return results for display on the page
+        results = execute_query(db_connection, query)
+        patProvs = results.fetchall()
+        return render_template('patientsProviders.html', rows=patProvs)
+
+      # update patientProvider information
+      elif 'edit' in request.form:
+        patProvID = request.form['patProvID']
+        query = "UPDATE PatientsProviders SET "
+        a = request.form.to_dict()
+        del a['patProvID']
+        del a['edit']
+        query += updateString(a) + " where patProvID = '" + patProvID + "'"
+        execute_query(db_connection, query)
+        return redirect('/patientsProviders')
+
+      # delete patientProvider record
+      elif "delete" in request.form:
+        patProvID = request.form["patProvID"]
+        query = "DELETE FROM PatientsProviders WHERE PatProvID = '"
+        query += patProvID + "'"
+        execute_query(db_connection, query)
+        return redirect('/patientsProviders')
 
 @app.route("/facilitiesProviders", methods=['POST', 'GET'])
 def facilitiesProviders():
