@@ -13,14 +13,16 @@
     {% block nav %}{% endblock %}
   </div>
   <header>
-    <div class="leftside">
-    {% block search %}{% endblock %}
-    </div>
-    <div class="rightside">
-      <div class="content">
-      {% block table %}{% endblock %}
+    {% block header %}
+      <div class="leftside">
+      {% block search %}{% endblock %}
       </div>
-    </div>
+      <div class="rightside">
+        <div class="content">
+        {% block table %}{% endblock %}
+        </div>
+      </div>
+    {% endblock %}
   </header>
 </body>
 </html>

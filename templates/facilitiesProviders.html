@@ -15,92 +15,98 @@
   </div>
 {% endblock %}
 
-{% block search %}
-  <form action="/facilitiesProviders" method="POST">
-    <input class="button" type="submit" value="SEARCH">
-    <input class="button" type="reset" value="RESET">
-      <ul class="search">
-        <input type="hidden" id="search" name="search">
-        <li>
-          <label for="provFacID">provFacID</label>
-        </li>
-        <li>
-          <input type="number" id="provFacID" name="provFacID">
-        </li><br>
-        <li>
-          <label for="provID">provID</label>
-        </li>
-        <li>
-          <select id="provID" name="provID">
-            <option value = ""></option>
-            {% for p in pid %}
-              <option value="{{ p[0] }}">{{ p[0] }}</option>
-            {% endfor %}
-          </select>
-        </li><br>
-        <li>
-          <label for="facliityID">facilityID</label>
-        </li>
-        <li>
-          <select id="facilityID" name="facilityID">
-            <option value = ""></option>
-            {% for f in fid %}
-              <option value="{{ f[0] }}">{{ f[0] }}</option>
-            {% endfor %}
-          </select>
-        </li><br>
-      </ul>
-  </form>
-{% endblock %}
+{% block header %}
+  {% if message %}
+    <p class="must">{{message}}</p>
+  {% else %}
+    {% block search %}
+      <form action="/facilitiesProviders" method="POST">
+        <input class="button" type="submit" value="SEARCH">
+        <input class="button" type="reset" value="RESET">
+          <ul class="search">
+            <input type="hidden" id="search" name="search">
+            <li>
+              <label for="provFacID">provFacID</label>
+            </li>
+            <li>
+              <input type="number" id="provFacID" name="provFacID">
+            </li><br>
+            <li>
+              <label for="provID">provID</label>
+            </li>
+            <li>
+              <select id="provID" name="provID">
+                <option value = ""></option>
+                {% for p in pid %}
+                  <option value="{{ p[0] }}">{{ p[0] }}</option>
+                {% endfor %}
+              </select>
+            </li><br>
+            <li>
+              <label for="facliityID">facilityID</label>
+            </li>
+            <li>
+              <select id="facilityID" name="facilityID">
+                <option value = ""></option>
+                {% for f in fid %}
+                  <option value="{{ f[0] }}">{{ f[0] }}</option>
+                {% endfor %}
+              </select>
+            </li><br>
+          </ul>
+      </form>
+    {% endblock %}
 
-{% block table %}
-  <table id="table">
-    <thead>
-      <tr>
-        <th>provFacID</th>
-        <th><span class="must">* </span>provID</th>
-        <th><span class="must">* </span>facilityID</th>
-        <th><span class="must">* must be filled</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr id="add">
-        <form action="/facilitiesProviders" method="POST">
-          <td>
-            <input type="hidden" id="addrow" name="addrow">
-          </td>
-          <td>
-            <select id="provID" name="provID">
-              {% for p in pid %}
-                <option value="{{ p[0] }}">{{ p[0] }}</option>
-              {% endfor %}
-            </select>
-          </td>
-          <td>
-            <select id="facilityID" name="facilityID">
-              {% for f in fid %}
-                <option value="{{ f[0] }}">{{ f[0] }}</option>
-              {% endfor %}
-            </select>
-          </td>
-          <td>
-            <input class="button" type="submit" value="ADD">
-          </td>
-        </form>
-      </tr>
-      <div class="show">
-        {% for r in rows %}
+    {% block table %}
+      <table id="table">
+        <thead>
           <tr>
-          <form id="row{{loop.index}}" action="/facilitiesProviders" method="POST">
-            <td><input type="number" id="provFacID" name="provFacID" value="{{ r[0] }}" disabled></td>
-            <td><input type="number" id="provID" name="provID" value="{{ r[1] }}" disabled ></td>
-            <td><input type="number" id="facilityID" name="facilityID" value="{{ r[2] }}" disabled></td>
-            <td><input id="{{loop.index}}" class="button" type="button" name="edit" value="Edit" onclick="editClick(event)"></td>
-            <td><input id="{{loop.index}}" class="button" type="button" name="delete" value="Delete" onclick="editClick(event)"></td>
-          </form>
+            <th>provFacID</th>
+            <th><span class="must">* </span>provID</th>
+            <th><span class="must">* </span>facilityID</th>
+            <th><span class="must">* must be filled</span></th>
           </tr>
-        {% endfor %}
-      </div>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+          <tr id="add">
+            <form action="/facilitiesProviders" method="POST">
+              <td>
+                <input type="hidden" id="addrow" name="addrow">
+              </td>
+              <td>
+                <select id="provID" name="provID">
+                  {% for p in pid %}
+                    <option value="{{ p[0] }}">{{ p[0] }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              <td>
+                <select id="facilityID" name="facilityID">
+                  {% for f in fid %}
+                    <option value="{{ f[0] }}">{{ f[0] }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              <td>
+                <input class="button" type="submit" value="ADD">
+              </td>
+            </form>
+          </tr>
+          <div class="show">
+            {% for r in rows %}
+              <tr>
+              <form id="row{{loop.index}}" action="/facilitiesProviders" method="POST">
+                <td><input type="number" id="provFacID" name="provFacID" value="{{ r[0] }}" disabled></td>
+                <td><input type="number" id="provID" name="provID" value="{{ r[1] }}" disabled ></td>
+                <td><input type="number" id="facilityID" name="facilityID" value="{{ r[2] }}" disabled></td>
+                <td><input id="{{loop.index}}" class="button" type="button" name="edit" value="Edit" onclick="editClick(event)"></td>
+                <td><input id="{{loop.index}}" class="button" type="button" name="delete" value="Delete" onclick="editClick(event)"></td>
+              </form>
+              </tr>
+            {% endfor %}
+          </div>
+        </tbody>
+      </table>
+    {% endblock %}
+  {% endif %}
 {% endblock %}

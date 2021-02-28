@@ -347,15 +347,26 @@ def facilitiesProviders():
   elif request.method == 'POST':
     # insert new row to the table
     if 'addrow' in request.form:
+      checkQuery = 'SELECT EXISTS(SELECT * FROM ProvidersFacilities WHERE '
       a = request.form.to_dict()
       requestForm = delEmptyColumn(a)
-      cols = colNames(requestForm)
-      vals = valuesString(requestForm)
+      checkQuery += conditionString(requestForm)+')'
+      check = execute_query(db_connection, checkQuery).fetchall()
+      check = list(check)[0][0]
+      
+      # check if the relationship already existed
+      if(not int(check)):
+        cols = colNames(requestForm)
+        vals = valuesString(requestForm)
 
-      query= 'INSERT INTO ProvidersFacilities (' + cols + ') VALUES (' + vals + ')'   
-      execute_query(db_connection, query)
+        query= 'INSERT INTO ProvidersFacilities (' + cols + ') VALUES (' + vals + ')'   
+        execute_query(db_connection, query)
 
-      return redirect('/facilitiesProviders')
+        return redirect('/facilitiesProviders')
+      else:
+        message = 'The relationship already existed. Please try another.'
+        return render_template('facilitiesProviders.html', message=message)
+
     
     # search/filter the table
     elif 'search' in request.form:
