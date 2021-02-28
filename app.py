@@ -353,7 +353,7 @@ def facilitiesProviders():
       checkQuery += conditionString(requestForm)+')'
       check = execute_query(db_connection, checkQuery).fetchall()
       check = list(check)[0][0]
-      
+
       # check if the relationship already existed
       if(not int(check)):
         cols = colNames(requestForm)
@@ -386,17 +386,6 @@ def facilitiesProviders():
         return render_template('facilitiesProviders.html', rows=result, pid=pResult,
         fid=fResult)
     
-    # update the row of the table
-    elif 'edit' in request.form:
-      provFacID = request.form['provFacID']
-      query = 'UPDATE ProvidersFacilities SET '
-      a = request.form.to_dict()
-      del a['provFacID']
-      del a['edit']
-      query += updateString(a) + " WHERE provFacID = '" + provFacID + "'"
-      execute_query(db_connection, query)
-      return redirect('/facilitiesProviders')
-
     # delete the row of the table  
     elif 'delete' in request.form:
       provFacID = request.form['provFacID']
