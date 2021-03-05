@@ -95,10 +95,10 @@
           <tr>
           <form id="row{{loop.index}}" action="/facilities" method="POST">
             <td><input type="number" id="facilityID" name="facilityID" value="{{ r[0] }}" disabled ></td>
-            <td><input type="text" id="facilityAddress" name="facilityAddress" value="{{ r[1] }}" disabled></td>
-            <td><input type="text" id="facilityCity" name="facilityCity" value="{{ r[2] }}" disabled></td>
-            <td><input type="text" id="facilityState" name="facilityState" value="{{ r[3] }}" disabled></td>
-            <td><input type="text" id="facilityZip" name="facilityZip" value="{{ r[4] }}" disabled></td>
+            <td><input type="text" required="required" id="facilityAddress" name="facilityAddress" value="{{ r[1] }}" disabled></td>
+            <td><input type="text" required="required" id="facilityCity" name="facilityCity" value="{{ r[2] }}" disabled></td>
+            <td><input type="text" required="required" id="facilityState" name="facilityState" value="{{ r[3] }}" disabled></td>
+            <td><input type="text" required="required" id="facilityZip" name="facilityZip" value="{{ r[4] }}" disabled></td>
             <td><input id="{{loop.index}}" class="button" type="button" name="seeProvider" value="See Provider" onclick="editClick(event)"></td>
             <td><input id="{{loop.index}}" class="button" type="button" name="edit" value="Edit" onclick="editClick(event)"></td>
             <td><input id="{{loop.index}}" class="button" type="button" name="delete" value="Delete" onclick="editClick(event)"></td>

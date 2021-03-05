@@ -85,9 +85,9 @@
           <tr>
           <form id="row{{loop.index}}" action="/providers" method="POST">
             <td><input type="number" id="provID" name="provID" value="{{ r[0] }}" disabled></td>
-            <td><input type="text" id="provFirstName" name="provFirstName" value="{{ r[1] }}" disabled></td>
-            <td><input type="text" id="provLastName" name="provLastName" value="{{ r[2] }}" disabled></td>
-            <td><input type="text" id="provSpecialty" name="provSpecialty" value="{{ r[3] }}" disabled></td>
+            <td><input type="text" required="required" id="provFirstName" name="provFirstName" value="{{ r[1] }}" disabled></td>
+            <td><input type="text" required="required" id="provLastName" name="provLastName" value="{{ r[2] }}" disabled></td>
+            <td><input type="text" required="required" id="provSpecialty" name="provSpecialty" value="{{ r[3] }}" disabled></td>
             <td><input id="{{loop.index}}" class="button" type="button" name="seePatient" value="See Patient" onclick="editClick(event)"></td>
             <td><input id="{{loop.index}}" class="button" type="button" name="edit" value="Edit" onclick="editClick(event)"></td>
             <td><input id="{{loop.index}}" class="button" type="button" name="delete" value="Delete" onclick="editClick(event)"></td>
