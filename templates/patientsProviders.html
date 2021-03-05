@@ -15,93 +15,98 @@
   </div>
 {% endblock %}
 
-{% block search %}
-  <form action="/patientsProviders" method="POST">
-    <input class="button" type="submit" value="SEARCH">
-    <input class="button" type="reset" value="RESET">
-      <ul class="search">
-        <input type="hidden" id="search" name="search">
-        <li>
-          <label for="patProvID">patProvID</label>
-        </li>
-        <li>
-          <input type="number" id="patProvID" name="patProvID">
-        </li><br>
-        <li>
-          <label for="patientID">patientID</label>
-        </li>
-        <li>
-          <select id="patientID" name="patientID">
-            <option value=""></option>
-            {% for patient in patients %}
-              <option value="{{patient[0]}}">{{patient[0]}}</option>
-            {% endfor %}
-          </select>
-        </li><br>
-        <li>
-          <label for="provID">provID</label>
-        </li>
-        <li>
-          <select id="provID" name="provID">
-            <option value=""></option>
-            {% for provider in providers %}
-              <option value="{{provider[0]}}">{{provider[0]}}</option>
-            {% endfor %}
-          </select>
-        </li><br>
-      </ul>
-  </form>
-{% endblock %}
+{% block header%}
+  {% if message %}
+    <p class="must">{{message}}</p>
+  {% else %}
+    {% block search %}
+      <form action="/patientsProviders" method="POST">
+        <input class="button" type="submit" value="SEARCH">
+        <input class="button" type="reset" value="RESET">
+          <ul class="search">
+            <input type="hidden" id="search" name="search">
+            <li>
+              <label for="patProvID">patProvID</label>
+            </li>
+            <li>
+              <input type="number" id="patProvID" name="patProvID">
+            </li><br>
+            <li>
+              <label for="patientID">patientID</label>
+            </li>
+            <li>
+              <select id="patientID" name="patientID">
+                <option value=""></option>
+                {% for patient in patients %}
+                  <option value="{{patient[0]}}">{{patient[0]}}</option>
+                {% endfor %}
+              </select>
+            </li><br>
+            <li>
+              <label for="provID">provID</label>
+            </li>
+            <li>
+              <select id="provID" name="provID">
+                <option value=""></option>
+                {% for provider in providers %}
+                  <option value="{{provider[0]}}">{{provider[0]}}</option>
+                {% endfor %}
+              </select>
+            </li><br>
+          </ul>
+      </form>
+    {% endblock %}
 
-{% block table %}
-  <table id="table">
-    <thead>
-      <tr>
-        <th>patProvID</th>
-        <th><span class="must">* </span>patientID</th>
-        <th><span class="must">* </span>provID</th>
-        <th><span class="must">* must be filled</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr id="add">
-        <form action="/patientsProviders" method="POST">
-          <input type="hidden" id="addrow" name="addrow">
-          <td>
-            <input type="hidden" id="patProvID" name = "patProvID">
-          </td>
-          <td>
-            <select id="patientID" name="patientID">
-              {% for patient in patients %}
-                <option value="{{patient[0]}}">{{patient[0]}}</option>
-              {% endfor %}
-            </select>
-          </td>
-          <td>
-            <select id="provID" name="provID">
-              {% for provider in providers %}
-                <option value="{{provider[0]}}">{{provider[0]}}</option>
-              {% endfor %}
-            </select>
-          </td>
-          <td>
-            <input class="button" type="submit" value="ADD">
-          </td>
-        </form>
-      </tr>
-      <div class="show">
-      {% for r in rows %}
-        <tr>
-        <form action="/patientsProviders" method="POST">
-          <td><input type="number" id="patProvID" name="patProvID" value="{{ r[0] }}" readonly></td>
-          <td><input type="number" id="patientID" name="patientID" value="{{ r[1] }}"></td>
-          <td><input type="number" id="provID" name="provID" value="{{ r[2] }}"></td>
-          <td><input class="button" type="submit" name="edit" value="Edit"></td>
-          <td><input class="button" type="submit" name="delete" value="Delete"></td>
-        </form>
-        </tr>
-      {% endfor %}
-      </div>
-    </tbody>
-  </table>
+    {% block table %}
+      <table id="table">
+        <thead>
+          <tr>
+            <th>patProvID</th>
+            <th><span class="must">* </span>patientID</th>
+            <th><span class="must">* </span>provID</th>
+            <th><span class="must">* must be filled</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="add">
+            <form action="/patientsProviders" method="POST">
+              <input type="hidden" id="addrow" name="addrow">
+              <td>
+                <input type="hidden" id="patProvID" name = "patProvID">
+              </td>
+              <td>
+                <select id="patientID" name="patientID">
+                  {% for patient in patients %}
+                    <option value="{{patient[0]}}">{{patient[0]}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              <td>
+                <select id="provID" name="provID">
+                  {% for provider in providers %}
+                    <option value="{{provider[0]}}">{{provider[0]}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              <td>
+                <input class="button" type="submit" value="ADD">
+              </td>
+            </form>
+          </tr>
+          <div class="show">
+          {% for r in rows %}
+            <tr>
+            <form id="row{{loop.index}}" action="/patientsProviders" method="POST">
+              <td><input type="number" id="patProvID" name="patProvID" value="{{ r[0] }}" disabled></td>
+              <td><input type="number" id="patientID" name="patientID" value="{{ r[1] }}" disabled></td>
+              <td><input type="number" id="provID" name="provID" value="{{ r[2] }}" disabled></td>
+              <td><input id="{{loop.index}}" class="button" type="submit" name="delete" value="Delete" onclick="editClick(event)"></td>
+            </form>
+            </tr>
+          {% endfor %}
+          </div>
+        </tbody>
+      </table>
+    {% endblock %}
+  {% endif %}
 {% endblock %}

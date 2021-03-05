@@ -60,7 +60,10 @@ def conditionString(requestForm):
 def updateString(requestForm):
   updateStr = ''
   for k, v in requestForm.items():
-    updateStr += k + ' = ' +  "'" + v + "'" + ', ' 
+    if v == None:
+      updateStr += k + ' = ' + ' NULL' + ', '
+    else:
+      updateStr += k + ' = ' +  "'" + v + "'" + ', ' 
   
   updateStr = updateStr[:-2]
   return updateStr
