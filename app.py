@@ -4,6 +4,7 @@ import os
 from function import *
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -46,25 +47,29 @@ def index():
 
       # update claim information
       elif 'edit' in request.form:
-        claimid = request.form['claimid']
-        query = "update claims set "
+        claimID = request.form['claimID']
+        query = "Update Claims SET "
         a = request.form.to_dict()
-        del a['claimid']
+        del a['claimID']
         del a['edit']
-        query += updatestring(a) + " where claimid = '" + claimid + "'"
+        if a['patProvID'] == 'None':
+          a['patProvID'] = None
+        if a['provFacID'] == 'None':
+          a['provFacID'] = None
+        query += updateString(a) + " where claimID = '" + claimID + "'"
         execute_query(db_connection, query)
         return redirect('/')
 
       # delete claim record
       elif "delete" in request.form:
-        claimid = request.form["claimid"]
-        query = "delete from claims where claimid = '"
-        query += claimid + "'"
+        claimID = request.form["claimID"]
+        query = "DELETE FROM Claims WHERE claimID = '"
+        query += claimID + "'"
         execute_query(db_connection, query)
         return redirect('/')   
 
       else:
-       raise RuntimeError("Request not found") 
+        raise RuntimeError("Request not found") 
 
 @app.route("/patients", methods=["GET", "POST"])
 def patients():
@@ -107,7 +112,7 @@ def patients():
       # See providers related to patient
       elif 'seeProvider' in request.form:
         provID = request.form['patientID']
-        query = "SELECT * FROM PatientsProviders WHERE patID = '"
+        query = "SELECT * FROM PatientsProviders WHERE patientID = '"
         query += provID + "'"
         patQuery = "SELECT * FROM Patients"
         provQuery = "SELECT * FROM Providers"
@@ -123,6 +128,8 @@ def patients():
         a = request.form.to_dict()
         del a['patientID']
         del a['edit']
+        if a['email'] == 'None':
+          a['email'] = None
         query += updateString(a) + " WHERE patientID = '" + patientID + "'"
         execute_query(db_connection, query)
         return redirect('/patients')
@@ -286,17 +293,28 @@ def patientsProviders():
       return render_template('patientsProviders.html', rows = result, patients = patResult, providers = provResult)
 
     elif request.method == "POST":
-      if "addrow" in request.form.keys():
-        # add the new row
+      # insert new row to the table
+      if 'addrow' in request.form:
+        checkQuery = 'SELECT EXISTS(SELECT * FROM PatientsProviders WHERE '
         a = request.form.to_dict()
         requestForm = delEmptyColumn(a)
-        columns = colNames(requestForm)
-        values = valuesString(requestForm)
-
-        query = "INSERT INTO PatientsProviders (" + columns + ") VALUES (" + values + ")"
-        execute_query(db_connection, query)
-        return redirect("/patientsProviders")
-
+        checkQuery += conditionString(requestForm)+')'
+        check = execute_query(db_connection, checkQuery).fetchall()
+        check = list(check)[0][0]
+ 
+        # check if the relationship already existed
+        if(not int(check)):
+          cols = colNames(requestForm)
+          vals = valuesString(requestForm)
+ 
+          query= 'INSERT INTO PatientsProviders (' + cols + ') VALUES (' + vals + ')'   
+          execute_query(db_connection, query)
+ 
+          return redirect('/patientsProviders')
+        else:
+          message = 'The relationship already existed. Please try another.'
+          return render_template('patientsProviders.html', message=message)
+      
       # Implement search on patients
       elif "search" in request.form.keys():
         query = "SELECT * FROM PatientsProviders WHERE "
@@ -308,17 +326,6 @@ def patientsProviders():
         results = execute_query(db_connection, query)
         patProvs = results.fetchall()
         return render_template('patientsProviders.html', rows=patProvs)
-
-      # update patientProvider information
-      elif 'edit' in request.form:
-        patProvID = request.form['patProvID']
-        query = "UPDATE PatientsProviders SET "
-        a = request.form.to_dict()
-        del a['patProvID']
-        del a['edit']
-        query += updateString(a) + " where patProvID = '" + patProvID + "'"
-        execute_query(db_connection, query)
-        return redirect('/patientsProviders')
 
       # delete patientProvider record
       elif "delete" in request.form:
@@ -346,15 +353,26 @@ def facilitiesProviders():
   elif request.method == 'POST':
     # insert new row to the table
     if 'addrow' in request.form:
+      checkQuery = 'SELECT EXISTS(SELECT * FROM ProvidersFacilities WHERE '
       a = request.form.to_dict()
       requestForm = delEmptyColumn(a)
-      cols = colNames(requestForm)
-      vals = valuesString(requestForm)
+      checkQuery += conditionString(requestForm)+')'
+      check = execute_query(db_connection, checkQuery).fetchall()
+      check = list(check)[0][0]
 
-      query= 'INSERT INTO ProvidersFacilities (' + cols + ') VALUES (' + vals + ')'   
-      execute_query(db_connection, query)
+      # check if the relationship already existed
+      if(not int(check)):
+        cols = colNames(requestForm)
+        vals = valuesString(requestForm)
 
-      return redirect('/facilitiesProviders')
+        query= 'INSERT INTO ProvidersFacilities (' + cols + ') VALUES (' + vals + ')'   
+        execute_query(db_connection, query)
+
+        return redirect('/facilitiesProviders')
+      else:
+        message = 'The relationship already existed. Please try another.'
+        return render_template('facilitiesProviders.html', message=message)
+
     
     # search/filter the table
     elif 'search' in request.form:
@@ -374,17 +392,6 @@ def facilitiesProviders():
         return render_template('facilitiesProviders.html', rows=result, pid=pResult,
         fid=fResult)
     
-    # update the row of the table
-    elif 'edit' in request.form:
-      provFacID = request.form['provFacID']
-      query = 'UPDATE ProvidersFacilities SET '
-      a = request.form.to_dict()
-      del a['provFacID']
-      del a['edit']
-      query += updateString(a) + " WHERE provFacID = '" + provFacID + "'"
-      execute_query(db_connection, query)
-      return redirect('/facilitiesProviders')
-
     # delete the row of the table  
     elif 'delete' in request.form:
       provFacID = request.form['provFacID']
