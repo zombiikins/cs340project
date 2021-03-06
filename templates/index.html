@@ -131,12 +131,12 @@
         <tr>
           <form id="row{{loop.index}}" action="/" method="POST">
             <td><input type="number" id="claimID" name="claimID" value="{{ claim [0] }}" disabled></td>
-            <td><input type="number" id="patientID" name="patientID" value="{{ claim [1] }}" disabled></td>
+            <td><input type="number" required="required" id="patientID" name="patientID" value="{{ claim [1] }}" disabled></td>
             <td><input type="text" id="patProvID" name="patProvID" value="{{ claim [2] }}" disabled></td>
             <td><input type="text" id="provFacID" name="provFacID" value="{{ claim [3] }}" disabled></td>
-            <td><input type="date" id="dateOfService" name="dateOfService" value="{{ claim [4] }}" disabled></td>
-            <td><input type="text" id="procedureDesc" name="procedureDesc" value="{{ claim [5] }}" disabled></td>
-            <td><input type="number" id="billedAmount" name="billedAmount" value="{{ claim[6] }}" disabled></td>
+            <td><input type="date" required="required" id="dateOfService" name="dateOfService" value="{{ claim [4] }}" disabled></td>
+            <td><input type="text" required="required" id="procedureDesc" name="procedureDesc" value="{{ claim [5] }}" disabled></td>
+            <td><input type="number" required="required" id="billedAmount" name="billedAmount" value="{{ claim[6] }}" disabled></td>
             <td><input id="{{loop.index}}" class="button" type="submit" name="edit" value="Edit" onclick="editClick(event)"></td>
             <td><input id="{{loop.index}}" class="button" type="submit" name="delete" value="Delete" onclick="editClick(event)"></td>
           </form>
