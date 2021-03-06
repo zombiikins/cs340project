@@ -31,34 +31,19 @@
             <label for="patientID">patientID</label>
           </li>
           <li>
-            <select id="patientID" name="patientID">
-              <option value=""></option>
-              {% for patient in patients %}
-                <option value="{{patient[0]}}">{{patient[0]}}</option>
-              {% endfor %}
-            </select>
+            <input type="number" id="patientID" name="patientID">
           </li><br>
           <li>
             <label for="patProvID">patProvID</label>
           </li>
           <li>
-            <select id="provID" name="provID">
-              <option value=""></option>
-              {% for patProv in patProv %}
-                <option value="{{patProv[0]}}">{{patProv[0]}}</option>
-              {% endfor %}
-            </select>
+            <input type="number" id="patProvID" name="patProvID">
           </li><br>
           <li>
             <label for="provFacID">provFacID</label>
           </li>
           <li>
-            <select id="provFacID" name="provFacID">
-              <option value=""></option>
-              {% for provFac in provFac %}
-                <option value="{{provFac[0]}}">{{provFac[0]}}</option>
-              {% endfor %}
-            </select>
+            <input type="number" id="provFacID" name="provFacID">
           </li><br>
           <li>
             <label for="dateOfService">dateOfService</label>
@@ -113,13 +98,13 @@
             <input type="number" id="provFacID" name="provFacID">
           </td>
           <td>
-            <input type="date" required="required" id="dateOfService" name="dateOfService">
+            <input type="date" id="dateOfService" name="dateOfService">
           </td>
           <td>
-            <input type="text" required="required" id="procedureDesc" name="procedureDesc">
+            <input type="text" id="procedureDesc" name="procedureDesc">
           </td>
           <td>
-            <input type="number" required="required" id="billedAmount" name="billedAmount">
+            <input type="number" id="billedAmount" name="billedAmount">
           </td>
           <td>
             <input class="button" type="submit" value="ADD">

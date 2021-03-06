@@ -12,18 +12,8 @@ def index():
     # read and show current data of the table 
     if request.method == "GET":
       query = "SELECT * FROM Claims"
-      claims = execute_query(db_connection, query).fetchall()
-
-      query = "SELECT * FROM Patients"
-      patients = execute_query(db_connection, query).fetchall()
-      
-      query = "SELECT * FROM PatientsProviders"
-      patProv = execute_query(db_connection, query).fetchall()
-      
-      query = "SELECT * FROM ProvidersFacilities"
-      provFac = execute_query(db_connection, query).fetchall()
-
-      return render_template("index.html", claims=claims, patients=patients, patProv=patProv, provFac=provFac)
+      result = execute_query(db_connection, query).fetchall()
+      return render_template("index.html", claims=result)
 
     elif request.method == "POST":
       # Add new row to table
@@ -50,13 +40,10 @@ def index():
         a = request.form.to_dict()
         requestForm = delEmptyColumn(a)
         query += conditionString(requestForm)
-        if len(requestForm) == 0:
-          return redirect('/')
-        else:
-          # Return results for display on the page
-          results = execute_query(db_connection, query)
-          claims = results.fetchall()
-          return render_template('index.html', claims=claims)
+        # Return results for display on the page
+        results = execute_query(db_connection, query)
+        claims = results.fetchall()
+        return render_template('index.html', claims=claims)
 
       # update claim information
       elif 'edit' in request.form:
@@ -116,16 +103,11 @@ def patients():
         query += " WHERE "
         a = request.form.to_dict()
         requestForm = delEmptyColumn(a)
-
-        if len(requestForm) == 0:
-          return redirect('/patients')
-
-        else:
-          query += conditionString(requestForm)
-          # Return results for display on the page
-          results = execute_query(db_connection, query)
-          patients = results.fetchall()
-          return render_template('patients.html', patients=patients)
+        query += conditionString(requestForm)
+        # Return results for display on the page
+        results = execute_query(db_connection, query)
+        patients = results.fetchall()
+        return render_template('patients.html', patients=patients)
     
       # See providers related to patient
       elif 'seeProvider' in request.form:
@@ -333,20 +315,17 @@ def patientsProviders():
           message = 'The relationship already existed. Please try another.'
           return render_template('patientsProviders.html', message=message)
       
-      # Implement search on patientsProviders
+      # Implement search on patients
       elif "search" in request.form.keys():
         query = "SELECT * FROM PatientsProviders WHERE "
         a = request.form.to_dict()
         requestForm = delEmptyColumn(a)
         query += conditionString(requestForm)
     
-        if len(requestForm) == 0:
-          return redirect('/patientsProviders')
-        else:
-          # Return results for display on the page
-          results = execute_query(db_connection, query)
-          patProvs = results.fetchall()
-          return render_template('patientsProviders.html', rows=patProvs)
+        # Return results for display on the page
+        results = execute_query(db_connection, query)
+        patProvs = results.fetchall()
+        return render_template('patientsProviders.html', rows=patProvs)
 
       # delete patientProvider record
       elif "delete" in request.form:
