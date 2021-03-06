@@ -42,7 +42,7 @@
             <label for="patProvID">patProvID</label>
           </li>
           <li>
-            <select id="provID" name="provID">
+            <select id="patProvID" name="patProvID">
               <option value=""></option>
               {% for patProv in patProv %}
                 <option value="{{patProv[0]}}">{{patProv[0]}}</option>
@@ -104,13 +104,28 @@
             <input type="hidden" id="claimID" name="claimID">
           </td>
           <td>
-            <input type="number" required="required" id="patientID" name="patientID">
+            <select id="patientID" name="patientID">
+              <option value=""></option>
+              {% for patient in patients %}
+                <option value="{{patient[0]}}">{{patient[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
-            <input type="number" id="patProvID" name="patProvID">
+            <select id="patProvID" name="patProvID">
+              <option value=""></option>
+              {% for patProv in patProv %}
+                <option value="{{patProv[0]}}">{{patProv[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
-            <input type="number" id="provFacID" name="provFacID">
+            <select id="provFacID" name="provFacID">
+              <option value=""></option>
+              {% for provFac in provFac %}
+                <option value="{{provFac[0]}}">{{provFac[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
             <input type="date" required="required" id="dateOfService" name="dateOfService">
