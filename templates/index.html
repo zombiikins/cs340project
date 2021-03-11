@@ -31,19 +31,34 @@
             <label for="patientID">patientID</label>
           </li>
           <li>
-            <input type="number" id="patientID" name="patientID">
+            <select id="patientID" name="patientID">
+              <option value=""></option>
+              {% for patient in patients %}
+                <option value="{{patient[0]}}">{{patient[0]}}</option>
+              {% endfor %}
+            </select>
           </li><br>
           <li>
             <label for="patProvID">patProvID</label>
           </li>
           <li>
-            <input type="number" id="patProvID" name="patProvID">
+            <select id="patProvID" name="patProvID">
+              <option value=""></option>
+              {% for patProv in patProv %}
+                <option value="{{patProv[0]}}">{{patProv[0]}}</option>
+              {% endfor %}
+            </select>
           </li><br>
           <li>
             <label for="provFacID">provFacID</label>
           </li>
           <li>
-            <input type="number" id="provFacID" name="provFacID">
+            <select id="provFacID" name="provFacID">
+              <option value=""></option>
+              {% for provFac in provFac %}
+                <option value="{{provFac[0]}}">{{provFac[0]}}</option>
+              {% endfor %}
+            </select>
           </li><br>
           <li>
             <label for="dateOfService">dateOfService</label>
@@ -89,22 +104,37 @@
             <input type="hidden" id="claimID" name="claimID">
           </td>
           <td>
-            <input type="number" id="patientID" name="patientID">
+            <select id="patientID" name="patientID">
+              <option value=""></option>
+              {% for patient in patients %}
+                <option value="{{patient[0]}}">{{patient[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
-            <input type="number" id="patProvID" name="patProvID">
+            <select id="patProvID" name="patProvID">
+              <option value=""></option>
+              {% for patProv in patProv %}
+                <option value="{{patProv[0]}}">{{patProv[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
-            <input type="number" id="provFacID" name="provFacID">
+            <select id="provFacID" name="provFacID">
+              <option value=""></option>
+              {% for provFac in provFac %}
+                <option value="{{provFac[0]}}">{{provFac[0]}}</option>
+              {% endfor %}
+            </select>
           </td>
           <td>
-            <input type="date" id="dateOfService" name="dateOfService">
+            <input type="date" required="required" id="dateOfService" name="dateOfService">
           </td>
           <td>
-            <input type="text" id="procedureDesc" name="procedureDesc">
+            <input type="text" required="required" id="procedureDesc" name="procedureDesc">
           </td>
           <td>
-            <input type="number" id="billedAmount" name="billedAmount">
+            <input type="number" required="required" id="billedAmount" name="billedAmount">
           </td>
           <td>
             <input class="button" type="submit" value="ADD">
@@ -116,12 +146,12 @@
         <tr>
           <form id="row{{loop.index}}" action="/" method="POST">
             <td><input type="number" id="claimID" name="claimID" value="{{ claim [0] }}" disabled></td>
-            <td><input type="number" id="patientID" name="patientID" value="{{ claim [1] }}" disabled></td>
+            <td><input type="number" required="required" id="patientID" name="patientID" value="{{ claim [1] }}" disabled></td>
             <td><input type="text" id="patProvID" name="patProvID" value="{{ claim [2] }}" disabled></td>
             <td><input type="text" id="provFacID" name="provFacID" value="{{ claim [3] }}" disabled></td>
-            <td><input type="date" id="dateOfService" name="dateOfService" value="{{ claim [4] }}" disabled></td>
-            <td><input type="text" id="procedureDesc" name="procedureDesc" value="{{ claim [5] }}" disabled></td>
-            <td><input type="number" id="billedAmount" name="billedAmount" value="{{ claim[6] }}" disabled></td>
+            <td><input type="date" required="required" id="dateOfService" name="dateOfService" value="{{ claim [4] }}" disabled></td>
+            <td><input type="text" required="required" id="procedureDesc" name="procedureDesc" value="{{ claim [5] }}" disabled></td>
+            <td><input type="number" required="required" id="billedAmount" name="billedAmount" value="{{ claim[6] }}" disabled></td>
             <td><input id="{{loop.index}}" class="button" type="submit" name="edit" value="Edit" onclick="editClick(event)"></td>
             <td><input id="{{loop.index}}" class="button" type="submit" name="delete" value="Delete" onclick="editClick(event)"></td>
           </form>
