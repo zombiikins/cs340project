@@ -51,8 +51,8 @@
         <li>
           <select id="gender" name="gender">
             <option value=""></option>
-            <option value="m">male</option>
-            <option value="f">female</option>
+            <option value="M">male</option>
+            <option value="F">female</option>
           </select>
         </li>
         <li>
@@ -98,8 +98,8 @@
           <td>
             <select id="gender" name="gender">
               <option value=""></option>
-              <option value="m">male</option>
-              <option value="f">female</option>
+              <option value="M">male</option>
+              <option value="F">female</option>
             </select>
           </td>
           <td>
@@ -123,8 +123,9 @@
             <td><input type="number" id="age" name="age" value={{patient[3]}} disabled></td>
             <td>
                 <select id="gender" name="gender" disabled>
-                  <option {% if patient[4] == "M" %} selected {% endif %} value="m">male</option>
-                  <option {% if patient[4] == "F" %} selected {% endif %} value="f">female</option>
+                  <option {% if patient[4] == "" %} selected {% endif %} value=""></option>
+                  <option {% if patient[4] == "M" %} selected {% endif %} value="M">male</option>
+                  <option {% if patient[4] == "F" %} selected {% endif %} value="F">female</option>
                 </select>
             </td>
             <td><input type="text" id="phoneNumber" name="phoneNumber" value="{{patient[5]}}" disabled></td>

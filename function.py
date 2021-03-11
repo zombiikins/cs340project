@@ -62,6 +62,8 @@ def updateString(requestForm):
   for k, v in requestForm.items():
     if v == None:
       updateStr += k + ' = ' + ' NULL' + ', '
+    elif v == '':
+      updateStr += k + ' = ' + ' NULL' + ', '
     else:
       updateStr += k + ' = ' +  "'" + v + "'" + ', ' 
   
